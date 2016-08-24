@@ -1,0 +1,47 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../spell-cards/spell-cards.html">
+<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<dom-module id="DM-Helper">
+  <template>
+    <style>
+      :host {
+          display: block;
+          font-family:Roboto, Arial, SansSerif;
+      }
+      app-toolbar{
+          background-color: #ffffff;
+          color:#606060;
+          font-weight:500;
+          font-size:18px;
+      }
+      body{
+
+      }
+
+        [hidden]{
+            display: none !important;
+        }
+    </style>
+      <app-header fixed condenses effects="waterfall">
+          <app-toolbar>
+              <div main-title>D&D 5E Spell Cards</div>
+          </app-toolbar>
+      </app-header>
+    <spell-cards></spell-cards>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'DM-Helper',
+
+      properties: {
+        prop1: {
+          type: String,
+          value: 'asdf'
+        }
+      }
+
+    });
+  </script>
+</dom-module>

@@ -1,0 +1,32 @@
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/iron-list/iron-list.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+</head><body><dom-module id="spell-cards">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+        </style>
+
+        <iron-ajax url="/spells.json" handle-as="json" last-response="{{data}}" auto=""></iron-ajax>
+            <template is="dom-repeat" items="{{data}}" as="spell">
+                <paper-item>
+                    <paper-item-body two-line="">
+                        <div>
+                        <h3>[[spell.name]]</h3>
+                        <h5>[[spell.level]] [[spell.school]]</h5>
+                        <div><b>Casting Time: </b>[[spell.casting_time]]</div>
+                        <div><b>Range: </b>[[spell.range]]</div>
+                        <div><b>Components: </b>[[spell.components]]</div>
+                        <div><b>Duration: </b>[[spell.duration]]</div>
+                            </div>
+                        <div secondary=""><p>[[spell.rules_text]]</p></div>
+                    </paper-item-body>
+                </paper-item>
+            </template>
+    </template>
+
+    <script>Polymer({is:"spell-cards",properties:{}});</script>
+</dom-module></body></html>

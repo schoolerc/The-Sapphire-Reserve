@@ -1,0 +1,6 @@
+{
+  "name": "DM-Helper-Web",
+  "short_name": "DM-Helper-Web",
+  "start_url": "/public",
+  "display": "standalone"
+}
