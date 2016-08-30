@@ -1,0 +1,86 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/paper-material/paper-material.html">
+<link rel="import" href="/bower_components/paper-item/paper-item.html">
+<link rel="import" href="/bower_components/paper-item/paper-item-body.html">
+
+<dom-module id="spell-card">
+    <template>
+        <style>
+            :host{
+                display:block;
+            }
+            paper-material {
+                margin-top: 10px;
+            }
+            paper-item-body{
+                --paper-item-body-secondary:{
+                    white-space:normal;
+                }
+            }
+        </style>
+
+        <paper-material elevation="1">
+            <paper-item>
+                <paper-item-body two-line>
+                    <div>
+                        <h3>[[data.name]]</h3>
+                        <h5>[[spellLevelSchoolDescription(data)]]</h5>
+                        <div><b>Casting Time: </b>[[data.casting_time]]</div>
+                        <div><b>Range: </b>[[data.range]]</div>
+                        <div><b>Components: </b>[[components(data)]]</div>
+                        <div><b>Duration: </b>[[data.duration]]</div>
+                    </div>
+                    <div secondary class="description"></div>
+                </paper-item-body>
+            </paper-item>
+        </paper-material>
+    </template>
+
+    <script>
+        Polymer({
+
+            is: 'spell-card',
+
+            properties: {
+                data: Object
+            },
+
+            ready: function()
+            {
+                this.querySelector("div.description").innerHTML = this.data.desc;
+            },
+
+            components: function (spell) {
+                var cmpts = spell.components.join(', ');
+                if (spell.material !== undefined) {
+                    cmpts += ' (' + spell.material + ')';
+                }
+                return cmpts;
+            },
+
+            spellLevelSchoolDescription: function (spell) {
+                var desc = "";
+                if (spell.level == 0) {
+                    desc = spell.school + " Cantrip";
+                }
+                else if (spell.level == 1) {
+                    desc = "1st-level " + spell.school;
+                }
+                else if (spell.level == 2) {
+                    desc = "2nd-level " + spell.school;
+                }
+                else if (spell.level == 3) {
+                    desc = "3rd-level " + spell.school;
+                }
+                else {
+                    desc = spell.level + "th-level " + spell.school;
+                }
+
+                if (spell.ritual) {
+                    desc += " (ritual)";
+                }
+                return desc;
+            },
+        });
+    </script>
+</dom-module>

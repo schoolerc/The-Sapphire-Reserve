@@ -1,0 +1,81 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/src/spell-cards/spell-cards.html">
+<link rel="import" href="/bower_components/paper-drawer-panel/paper-drawer-panel.html">
+<link rel="import" href="/bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="/bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="/bower_components/paper-item/paper-item.html">
+<link rel="import" href="/bower_components/neon-animation/neon-animated-pages.html">
+<link rel="import" href="/bower_components/neon-animation/animations/slide-from-right-animation.html">
+<link rel="import" href="/bower_components/neon-animation/animations/fade-out-animation.html">
+
+
+<dom-module id="sapphire-reserve">
+  <template>
+    <style>
+      :host {
+          display: block;
+          font-family:Roboto, Arial, SansSerif;
+      }
+      paper-toolbar {
+          background-color: var(--primary-color);
+          color: white;
+          font-weight: 500;
+          font-size: 18px;
+      }
+      body{
+
+      }
+
+      #drawer_title{
+          margin-left: 0;
+      }
+
+      paper-drawer-panel{
+          --paper-drawer-panel-main-container: {
+              overflow:auto;
+          };
+          --paper-drawer-panel-drawer-container:{
+              border-right: 2px solid var(--divider-color);
+          }
+      }
+
+
+        [hidden]{
+            display: none !important;
+        }
+    </style>
+      <paper-drawer-panel>
+          <paper-header-panel drawer class="layout vertical">
+            <paper-toolbar>
+                <span class="title" id="drawer_title">The Sapphire Reserve</span>
+            </paper-toolbar>
+              <paper-listbox selected="{{selectedTab}}">
+                  <paper-item>Spell Cards</paper-item>
+                  <paper-item>OTHER TEST</paper-item>
+              </paper-listbox>
+          </paper-header-panel>
+          <paper-header-panel main>
+              <neon-animated-pages selected="{{selectedTab}}" entry-animation="slide-from-right-animation" exit-animation="fade-out-animation">
+                  <spell-cards></spell-cards>
+                  <paper-material elevation="1" class="flex">HELLO</paper-material>
+              </neon-animated-pages>
+          </paper-header-panel>
+      </paper-drawer-panel>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'sapphire-reserve',
+
+      properties: {
+      },
+
+      ready: function()
+      {
+          this.selectedTab = 0;
+      }
+
+    });
+  </script>
+</dom-module>
