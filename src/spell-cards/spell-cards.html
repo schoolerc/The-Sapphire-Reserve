@@ -99,7 +99,7 @@
             <paper-button raised noink on-tap="clearFilters">Clear Filters</paper-button>
         </div>
         <template is="dom-repeat" items="{{spells}}" as="spell" id="spellList" filter="filterSpell" sort="sortSpells"
-                  initial-count="20">
+                  initial-count="5">
             <spell-card data="[[spell]]"></spell-card>
         </template>
             </div>

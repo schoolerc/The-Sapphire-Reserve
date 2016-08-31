@@ -1,6 +1,6 @@
 {
   "name": "The Sapphire Reserve",
   "short_name": "The Sapphire Reserve",
-  "start_url": "/public",
+  "start_url": "/",
   "display": "standalone"
 }

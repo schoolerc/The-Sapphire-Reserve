@@ -30,7 +30,7 @@
                         <div><b>Components: </b>[[components(data)]]</div>
                         <div><b>Duration: </b>[[data.duration]]</div>
                     </div>
-                    <div secondary class="description"></div>
+                    <div secondary id="description">[[spellDescription(data)]]</div>
                 </paper-item-body>
             </paper-item>
         </paper-material>
@@ -45,9 +45,9 @@
                 data: Object
             },
 
-            ready: function()
+            spellDescription: function(spell)
             {
-                this.querySelector("div.description").innerHTML = this.data.desc;
+                this.$.description.innerHTML = spell.desc;
             },
 
             components: function (spell) {
