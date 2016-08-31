@@ -9,7 +9,7 @@
 <link rel="import" href="/bower_components/neon-animation/neon-animatable-behavior.html">
 <link rel="import" href="/bower_components/neon-animation/animations/fade-in-animation.html">
 <link rel="import" href="/bower_components/neon-animation/animations/fade-out-animation.html">
-<link rel="import" href="/src/spell-card/spell-card.html">
+<link rel="import" href="spell-card.html">
 <dom-module id="spell-cards">
     <template>
         <style include="iron-flex"></style>
@@ -49,10 +49,6 @@
                 padding-left:10px;
             }
         </style>
-        <paper-toolbar>
-            <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
-            <span class="title">D&D 5E Spell Cards</span>
-        </paper-toolbar>
         <div class="paddingWrapper">
         <div class="layout horizontal wrap">
             <paper-dropdown-menu label="Class" class="flex-auto">

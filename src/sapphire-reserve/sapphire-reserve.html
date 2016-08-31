@@ -1,12 +1,21 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
-<link rel="import" href="/src/spell-cards/spell-cards.html">
+<link rel="import" href="../spell-cards/spell-cards.html">
 <link rel="import" href="/bower_components/paper-drawer-panel/paper-drawer-panel.html">
 <link rel="import" href="/bower_components/paper-toolbar/paper-toolbar.html">
 <link rel="import" href="/bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="/bower_components/paper-item/paper-item.html">
 <link rel="import" href="/bower_components/neon-animation/neon-animated-pages.html">
 <link rel="import" href="/bower_components/neon-animation/animations/slide-from-right-animation.html">
+<link rel="import" href="/bower_components/neon-animation/animations/slide-up-animation.html">
+<link rel="import" href="/bower_components/neon-animation/animations/fade-in-animation.html">
 <link rel="import" href="/bower_components/neon-animation/animations/fade-out-animation.html">
+<link rel="import" href="../monster-cards/monster-cards.html">
+<link rel="import" href="../combat-tracker/combat-tracker.html">
+<link rel="import" href="/bower_components/paper-styles/paper-styles.html">
+<link rel="import" href="/bower_components/app-route/app-location.html">
+<link rel="import" href="/bower_components/app-route/app-route.html">
+<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="/bower_components/iron-icons/iron-icons.html">
 
 
 <dom-module id="sapphire-reserve">
@@ -16,12 +25,7 @@
           display: block;
           font-family:Roboto, Arial, SansSerif;
       }
-      paper-toolbar {
-          background-color: var(--primary-color);
-          color: white;
-          font-weight: 500;
-          font-size: 18px;
-      }
+
       body{
 
       }
@@ -36,6 +40,16 @@
           };
           --paper-drawer-panel-drawer-container:{
               border-right: 2px solid var(--divider-color);
+
+          };
+      }
+
+      paper-item{
+          --paper-item-selected:{
+              background-color: var(--paper-grey-300);
+          }
+          --paper-item-focused:{
+              background-color:inherit;
           }
       }
 
@@ -44,20 +58,36 @@
             display: none !important;
         }
     </style>
+      <app-location route="{{route}}"></app-location>
+      <app-route route="{{route}}" pattern="/:item" data="{{data}}"></app-route>
+
       <paper-drawer-panel>
           <paper-header-panel drawer class="layout vertical">
-            <paper-toolbar>
+            <paper-toolbar class="side-toolbar">
                 <span class="title" id="drawer_title">The Sapphire Reserve</span>
             </paper-toolbar>
-              <paper-listbox selected="{{selectedTab}}">
-                  <paper-item>Spell Cards</paper-item>
-                  <paper-item>OTHER TEST</paper-item>
+              <paper-listbox selected="{{data.item}}" attr-for-selected="key">
+                  <paper-item key="">Home</paper-item>
+                  <paper-item key="spell-cards">Spell Cards</paper-item>
+                  <paper-item key="monster-cards">Monster Cards</paper-item>
+                  <paper-item key="combat-tracker">Combat Tracker</paper-item>
               </paper-listbox>
           </paper-header-panel>
           <paper-header-panel main>
-              <neon-animated-pages selected="{{selectedTab}}" entry-animation="slide-from-right-animation" exit-animation="fade-out-animation">
-                  <spell-cards></spell-cards>
-                  <paper-material elevation="1" class="flex">HELLO</paper-material>
+              <paper-toolbar>
+                  <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
+                  <neon-animated-pages attr-for-selected="key" selected="{{data.item}}" entry-animation="fade-in-animation" exit-animation="slide-up-animation">
+                      <neon-animatable key=""><span class="title">Home</span></neon-animatable>
+                      <neon-animatable key="spell-cards"><span class="title">D&D 5E Spell Cards</span></neon-animatable>
+                      <neon-animatable key="monster-cards"><span class="title">Monster Cards</span></neon-animatable>
+                      <neon-animatable key="combat-tracker"><span class="title">Combat Tracker</span></neon-animatable>
+                  </neon-animated-pages>
+              </paper-toolbar>
+              <neon-animated-pages selected="{{data.item}}" entry-animation="slide-from-right-animation" exit-animation="fade-out-animation" attr-for-selected="key">
+                  <home key=""></home>
+                  <spell-cards key="spell-cards"></spell-cards>
+                  <monster-cards key="monster-cards"></monster-cards>
+                  <combat-tracker key="combat-tracker"></combat-tracker>
               </neon-animated-pages>
           </paper-header-panel>
       </paper-drawer-panel>
@@ -73,7 +103,6 @@
 
       ready: function()
       {
-          this.selectedTab = 0;
       }
 
     });
