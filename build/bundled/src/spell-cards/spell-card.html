@@ -1,0 +1,41 @@
+<html><head><link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/paper-material/paper-material.html">
+<link rel="import" href="/bower_components/paper-item/paper-item.html">
+<link rel="import" href="/bower_components/paper-item/paper-item-body.html">
+
+</head><body><dom-module id="spell-card">
+    <template>
+        <style>
+            :host{
+                display:block;
+            }
+            paper-material {
+                margin-top: 10px;
+            }
+            paper-item-body{
+                --paper-item-body-secondary:{
+                    white-space:normal;
+                }
+            }
+        </style>
+
+        <paper-material elevation="1">
+            <paper-item>
+                <paper-item-body two-line="">
+                    <div>
+                        <h3>[[data.name]]</h3>
+                        <h5>[[spellLevelSchoolDescription(data)]]</h5>
+                        <div><b>Casting Time: </b>[[data.casting_time]]</div>
+                        <div><b>Range: </b>[[data.range]]</div>
+                        <div><b>Components: </b>[[components(data)]]</div>
+                        <div><b>Duration: </b>[[data.duration]]</div>
+                    </div>
+                    <div secondary="" id="description">[[spellDescription(data)]]</div>
+                </paper-item-body>
+            </paper-item>
+        </paper-material>
+    </template>
+
+    <script>Polymer({is:"spell-card",properties:{data:Object},spellDescription:function(e){this.$.description.innerHTML=e.desc},components:function(e){var l=e.components.join(", ");return void 0!==e.material&&(l+=" ("+e.material+")"),l},spellLevelSchoolDescription:function(e){var l="";return l=0==e.level?e.school+" Cantrip":1==e.level?"1st-level "+e.school:2==e.level?"2nd-level "+e.school:3==e.level?"3rd-level "+e.school:e.level+"th-level "+e.school,e.ritual&&(l+=" (ritual)"),l}});</script>
+</dom-module>
+</body></html>

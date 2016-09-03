@@ -6,15 +6,17 @@
 <dom-module id="spell-card">
     <template>
         <style>
-            :host{
-                display:block;
+            :host {
+                display: block;
             }
+
             paper-material {
                 margin-top: 10px;
             }
-            paper-item-body{
-                --paper-item-body-secondary:{
-                    white-space:normal;
+
+            paper-item-body {
+                --paper-item-body-secondary: {
+                    white-space: normal;
                 }
             }
         </style>
@@ -45,8 +47,7 @@
                 data: Object
             },
 
-            spellDescription: function(spell)
-            {
+            spellDescription: function (spell) {
                 this.$.description.innerHTML = spell.desc;
             },
 

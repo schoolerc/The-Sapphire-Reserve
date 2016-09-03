@@ -9,22 +9,21 @@
 <link rel="import" href="/bower_components/neon-animation/neon-animatable-behavior.html">
 <link rel="import" href="/bower_components/neon-animation/animations/fade-in-animation.html">
 <link rel="import" href="/bower_components/neon-animation/animations/fade-out-animation.html">
+<link rel="import" href="/bower_components/iron-list/iron-list.html">
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="spell-card.html">
 <dom-module id="spell-cards">
     <template>
         <style include="iron-flex"></style>
         <style>
             :host {
-                display: block;
+                height:100vh;
+                display: flex;
+                flex-direction:column;
             }
 
-            h5 {
-                margin-top: 5px;
-                margin-bottom: 15px;
-            }
-
-            h3 {
-                margin-bottom: 0;
+            iron-list{
+                flex: 1 1 auto;
             }
 
             paper-toolbar {
@@ -43,66 +42,63 @@
                 margin-right: 5px;
                 margin-left: 5px;
             }
-
-            .paddingWrapper{
-                padding-right:10px;
-                padding-left:10px;
-            }
         </style>
-        <div class="paddingWrapper">
-        <div class="layout horizontal wrap">
-            <paper-dropdown-menu label="Class" class="flex-auto">
-                <paper-listbox multi attr-for-selected="name" class="dropdown-content"
-                               selected-values="{{playerClasses}}">
-                    <paper-item name="Bard">Bard</paper-item>
-                    <paper-item name="Cleric">Cleric</paper-item>
-                    <paper-item name="Druid">Druid</paper-item>
-                    <paper-item name="Paladin">Paladin</paper-item>
-                    <paper-item name="Ranger">Ranger</paper-item>
-                    <paper-item name="Sorcerer">Sorcerer</paper-item>
-                    <paper-item name="Warlock">Warlock</paper-item>
-                    <paper-item name="Wizard">Wizard</paper-item>
-                </paper-listbox>
-            </paper-dropdown-menu>
-            <paper-dropdown-menu label="School" class="flex-auto">
-                <paper-listbox multi class="dropdown-content" attr-for-selected="name"
-                               selected-values="{{spellSchools}}">
-                    <paper-item name="Abjuration">Abjuration</paper-item>
-                    <paper-item name="Conjuration">Conjuration</paper-item>
-                    <paper-item name="Divination">Divination</paper-item>
-                    <paper-item name="Enchantment">Enchantment</paper-item>
-                    <paper-item name="Evocation">Evocation</paper-item>
-                    <paper-item name="Illusion">Illusion</paper-item>
-                    <paper-item name="Necromancy">Necromancy</paper-item>
-                    <paper-item name="Transmutation">Transmutation</paper-item>
-                </paper-listbox>
-            </paper-dropdown-menu>
-            <paper-dropdown-menu label="Level" class="flex-auto">
-                <paper-listbox multi class="dropdown-content" attr-for-selected="level"
-                               selected-values="{{spellLevels}}">
-                    <paper-item level="0">Cantrip</paper-item>
-                    <paper-item level="1">1st-level</paper-item>
-                    <paper-item level="2">2nd-level</paper-item>
-                    <paper-item level="3">3rd-level</paper-item>
-                    <paper-item level="4">4th-level</paper-item>
-                    <paper-item level="5">5th-level</paper-item>
-                    <paper-item level="6">6th-level</paper-item>
-                    <paper-item level="7">7th-level</paper-item>
-                    <paper-item level="8">8th-level</paper-item>
-                    <paper-item level="9">9th-level</paper-item>
-                </paper-listbox>
-            </paper-dropdown-menu>
-            <paper-input label="Name" value="{{spellName}}" class="flex-auto"></paper-input>
-        </div>
-        <div class="layout horizontal">
-            <paper-button raised noink on-tap="applyFilters">Apply Filters</paper-button>
-            <paper-button raised noink on-tap="clearFilters">Clear Filters</paper-button>
-        </div>
-        <template is="dom-repeat" items="{{spells}}" as="spell" id="spellList" filter="filterSpell" sort="sortSpells"
-                  initial-count="5">
-            <spell-card data="[[spell]]"></spell-card>
-        </template>
+        <div>
+            <!--<div class="layout horizontal wrap">
+                <paper-dropdown-menu label="Class" class="flex-auto">
+                    <paper-listbox multi attr-for-selected="name" class="dropdown-content"
+                                   selected-values="{{playerClasses}}">
+                        <paper-item name="Bard">Bard</paper-item>
+                        <paper-item name="Cleric">Cleric</paper-item>
+                        <paper-item name="Druid">Druid</paper-item>
+                        <paper-item name="Paladin">Paladin</paper-item>
+                        <paper-item name="Ranger">Ranger</paper-item>
+                        <paper-item name="Sorcerer">Sorcerer</paper-item>
+                        <paper-item name="Warlock">Warlock</paper-item>
+                        <paper-item name="Wizard">Wizard</paper-item>
+                    </paper-listbox>
+                </paper-dropdown-menu>
+                <paper-dropdown-menu label="School" class="flex-auto">
+                    <paper-listbox multi class="dropdown-content" attr-for-selected="name"
+                                   selected-values="{{spellSchools}}">
+                        <paper-item name="Abjuration">Abjuration</paper-item>
+                        <paper-item name="Conjuration">Conjuration</paper-item>
+                        <paper-item name="Divination">Divination</paper-item>
+                        <paper-item name="Enchantment">Enchantment</paper-item>
+                        <paper-item name="Evocation">Evocation</paper-item>
+                        <paper-item name="Illusion">Illusion</paper-item>
+                        <paper-item name="Necromancy">Necromancy</paper-item>
+                        <paper-item name="Transmutation">Transmutation</paper-item>
+                    </paper-listbox>
+                </paper-dropdown-menu>
+                <paper-dropdown-menu label="Level" class="flex-auto">
+                    <paper-listbox multi class="dropdown-content" attr-for-selected="level"
+                                   selected-values="{{spellLevels}}">
+                        <paper-item level="0">Cantrip</paper-item>
+                        <paper-item level="1">1st-level</paper-item>
+                        <paper-item level="2">2nd-level</paper-item>
+                        <paper-item level="3">3rd-level</paper-item>
+                        <paper-item level="4">4th-level</paper-item>
+                        <paper-item level="5">5th-level</paper-item>
+                        <paper-item level="6">6th-level</paper-item>
+                        <paper-item level="7">7th-level</paper-item>
+                        <paper-item level="8">8th-level</paper-item>
+                        <paper-item level="9">9th-level</paper-item>
+                    </paper-listbox>
+                </paper-dropdown-menu>
+                <paper-input label="Name" value="{{spellName}}" class="flex-auto"></paper-input>
             </div>
+            <div class="layout horizontal">
+                <paper-button raised noink on-tap="applyFilters">Apply Filters</paper-button>
+                <paper-button raised noink on-tap="clearFilters">Clear Filters</paper-button>
+            </div>-->
+            <iron-ajax url="/data.json" last-response="{{data}}" auto></iron-ajax>
+                <iron-list items="[[data.spells]]">
+                    <template>
+                        <spell-card data="[[item]]"></spell-card>
+                    </template>
+                </iron-list>
+        </div>
     </template>
 
     <script>
@@ -129,20 +125,43 @@
                 }
             },
 
-            behaviors:[Polymer.NeonAnimatableBehavior],
+
+            components: function (spell) {
+                var cmpts = spell.components.join(', ');
+                if (spell.material !== undefined) {
+                    cmpts += ' (' + spell.material + ')';
+                }
+                return cmpts;
+            },
+
+            spellLevelSchoolDescription: function (spell) {
+                var desc = "";
+                if (spell.level == 0) {
+                    desc = spell.school + " Cantrip";
+                }
+                else if (spell.level == 1) {
+                    desc = "1st-level " + spell.school;
+                }
+                else if (spell.level == 2) {
+                    desc = "2nd-level " + spell.school;
+                }
+                else if (spell.level == 3) {
+                    desc = "3rd-level " + spell.school;
+                }
+                else {
+                    desc = spell.level + "th-level " + spell.school;
+                }
+
+                if (spell.ritual) {
+                    desc += " (ritual)";
+                }
+                return desc;
+            },
+
+            behaviors: [Polymer.NeonAnimatableBehavior],
 
             ready: function () {
-                var config = {
-                    authDomain: "thesapphirereserve.firebaseapp.com",
-                    databaseURL: "https://thesapphirereserve.firebaseio.com"
-                };
-                firebase.initializeApp(config);
 
-                var database = firebase.database();
-                var spellsRef = database.ref('spells');
-                spellsRef.on('value', function (snapshot) {
-                    document.querySelector("spell-cards").spells = snapshot.val();
-                })
             },
             applyFilters: function (e) {
                 this.$.spellList.render();

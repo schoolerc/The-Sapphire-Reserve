@@ -1,4 +1,4 @@
-<link rel="import" href="/bower_components/polymer/polymer.html">
+<html><head><link rel="import" href="/bower_components/polymer/polymer.html">
 <link rel="import" href="../spell-cards/spell-cards.html">
 <link rel="import" href="/bower_components/paper-drawer-panel/paper-drawer-panel.html">
 <link rel="import" href="/bower_components/paper-toolbar/paper-toolbar.html">
@@ -19,7 +19,7 @@
 <link rel="import" href="/bower_components/neon-animation/animations/slide-left-animation.html">
 
 
-<dom-module id="sapphire-reserve">
+</head><body><dom-module id="sapphire-reserve">
   <template>
     <style>
       :host {
@@ -31,16 +31,14 @@
 
       }
 
-      #content
-      {
-        height:100vh;
-      }
-
       #drawer_title{
           margin-left: 0;
       }
 
       paper-drawer-panel{
+          --paper-drawer-panel-main-container: {
+              overflow:auto;
+          };
           --paper-drawer-panel-drawer-container:{
               border-right: 2px solid var(--divider-color);
 
@@ -65,7 +63,7 @@
       <app-route route="{{route}}" pattern="/:item" data="{{data}}"></app-route>
 
       <paper-drawer-panel>
-          <paper-header-panel drawer class="layout vertical">
+          <paper-header-panel drawer="" class="layout vertical">
             <paper-toolbar class="side-toolbar">
                 <span class="title" id="drawer_title">The Sapphire Reserve</span>
             </paper-toolbar>
@@ -76,17 +74,17 @@
                   <paper-item key="combat-tracker">Combat Tracker</paper-item>
               </paper-listbox>
           </paper-header-panel>
-          <paper-header-panel main>
+          <paper-header-panel main="">
               <paper-toolbar>
-                  <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
+                  <paper-icon-button icon="menu" paper-drawer-toggle=""></paper-icon-button>
                   <neon-animated-pages attr-for-selected="key" selected="{{data.item}}" entry-animation="slide-from-right-animation" exit-animation="slide-left-animation">
                       <neon-animatable key=""><span class="title">Home</span></neon-animatable>
-                      <neon-animatable key="spell-cards"><span class="title">D&D 5E Spell Cards</span></neon-animatable>
+                      <neon-animatable key="spell-cards"><span class="title">D&amp;D 5E Spell Cards</span></neon-animatable>
                       <neon-animatable key="monster-cards"><span class="title">Monster Cards</span></neon-animatable>
                       <neon-animatable key="combat-tracker"><span class="title">Combat Tracker</span></neon-animatable>
                   </neon-animated-pages>
               </paper-toolbar>
-              <neon-animated-pages id="content" selected="{{data.item}}" entry-animation="slide-from-right-animation" exit-animation="slide-left-animation" attr-for-selected="key">
+              <neon-animated-pages selected="{{data.item}}" entry-animation="slide-from-right-animation" exit-animation="slide-left-animation" attr-for-selected="key">
                   <home-page key=""></home-page>
                   <spell-cards key="spell-cards"></spell-cards>
                   <monster-cards key="monster-cards"></monster-cards>
@@ -96,18 +94,6 @@
       </paper-drawer-panel>
   </template>
 
-  <script>
-    Polymer({
-
-      is: 'sapphire-reserve',
-
-      properties: {
-      },
-
-      ready: function()
-      {
-      }
-
-    });
-  </script>
+  <script>Polymer({is:"sapphire-reserve",properties:{},ready:function(){}});</script>
 </dom-module>
+</body></html>
