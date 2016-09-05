@@ -12,6 +12,8 @@
 <link rel="import" href="/bower_components/iron-list/iron-list.html">
 <link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="/bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="/bower_components/iron-collapse/iron-collapse.html">
 <link rel="import" href="spell-card.html">
 <dom-module id="spell-cards">
     <template>
@@ -19,92 +21,90 @@
         <style>
             :host {
                 display: flex;
-                flex-direction:column;
+                flex-direction: column;
             }
 
-            iron-list{
+            iron-list {
                 flex: 1 1 auto;
-            }
-
-            paper-toolbar {
-                font-weight: 500;
-                font-size: 18px;
-                background-color: transparent;
-                color: #000000;
             }
 
             div > paper-input {
                 margin-right: 5px;
                 margin-left: 5px;
+                flex-grow: 1;
             }
 
             div > paper-dropdown-menu {
                 margin-right: 5px;
                 margin-left: 5px;
-            }
-            .ironListContainer{
-                display:flex;
-                flex-direction:column;
+                flex-grow: 1;
             }
         </style>
-        <div class="horizontal wrap">
-            <paper-dropdown-menu label="Class" class="flex-auto">
-                <paper-listbox multi attr-for-selected="name" class="dropdown-content"
-                               selected-values="{{playerClasses}}">
-                    <paper-item name="Bard">Bard</paper-item>
-                    <paper-item name="Cleric">Cleric</paper-item>
-                    <paper-item name="Druid">Druid</paper-item>
-                    <paper-item name="Paladin">Paladin</paper-item>
-                    <paper-item name="Ranger">Ranger</paper-item>
-                    <paper-item name="Sorcerer">Sorcerer</paper-item>
-                    <paper-item name="Warlock">Warlock</paper-item>
-                    <paper-item name="Wizard">Wizard</paper-item>
-                </paper-listbox>
-            </paper-dropdown-menu>
-            <paper-dropdown-menu label="School" class="flex-auto">
-                <paper-listbox multi class="dropdown-content" attr-for-selected="name"
-                               selected-values="{{spellSchools}}">
-                    <paper-item name="Abjuration">Abjuration</paper-item>
-                    <paper-item name="Conjuration">Conjuration</paper-item>
-                    <paper-item name="Divination">Divination</paper-item>
-                    <paper-item name="Enchantment">Enchantment</paper-item>
-                    <paper-item name="Evocation">Evocation</paper-item>
-                    <paper-item name="Illusion">Illusion</paper-item>
-                    <paper-item name="Necromancy">Necromancy</paper-item>
-                    <paper-item name="Transmutation">Transmutation</paper-item>
-                </paper-listbox>
-            </paper-dropdown-menu>
-            <paper-dropdown-menu label="Level" class="flex-auto">
-                <paper-listbox multi class="dropdown-content" attr-for-selected="level"
-                               selected-values="{{spellLevels}}">
-                    <paper-item level="0">Cantrip</paper-item>
-                    <paper-item level="1">1st-level</paper-item>
-                    <paper-item level="2">2nd-level</paper-item>
-                    <paper-item level="3">3rd-level</paper-item>
-                    <paper-item level="4">4th-level</paper-item>
-                    <paper-item level="5">5th-level</paper-item>
-                    <paper-item level="6">6th-level</paper-item>
-                    <paper-item level="7">7th-level</paper-item>
-                    <paper-item level="8">8th-level</paper-item>
-                    <paper-item level="9">9th-level</paper-item>
-                </paper-listbox>
-            </paper-dropdown-menu>
-            <paper-input label="Name" value="{{spellName}}" class="flex-auto"></paper-input>
-        <div class="horizontal">
-            <paper-button raised noink on-tap="applyFilters">Apply Filters</paper-button>
-            <paper-button raised noink on-tap="clearFilters">Clear Filters</paper-button>
+        <paper-toolbar>
+            <paper-icon-button icon="menu" paper-drawer-toggle on-tap="toggleDrawer"></paper-icon-button>
+            <span class="title">D&D 5E Spell Cards</span>
+            <paper-icon-button icon="search" on-tap="toggleSearch"></paper-icon-button>
+        </paper-toolbar>
+        <div>
+            <iron-collapse>
+                <div>
+                    <div class="layout horizontal wrap">
+                        <paper-dropdown-menu label="Class">
+                            <paper-listbox multi attr-for-selected="name" class="dropdown-content"
+                                           selected-values="{{playerClasses}}">
+                                <paper-item name="Bard">Bard</paper-item>
+                                <paper-item name="Cleric">Cleric</paper-item>
+                                <paper-item name="Druid">Druid</paper-item>
+                                <paper-item name="Paladin">Paladin</paper-item>
+                                <paper-item name="Ranger">Ranger</paper-item>
+                                <paper-item name="Sorcerer">Sorcerer</paper-item>
+                                <paper-item name="Warlock">Warlock</paper-item>
+                                <paper-item name="Wizard">Wizard</paper-item>
+                            </paper-listbox>
+                        </paper-dropdown-menu>
+                        <paper-dropdown-menu label="School">
+                            <paper-listbox multi class="dropdown-content" attr-for-selected="name"
+                                           selected-values="{{spellSchools}}">
+                                <paper-item name="Abjuration">Abjuration</paper-item>
+                                <paper-item name="Conjuration">Conjuration</paper-item>
+                                <paper-item name="Divination">Divination</paper-item>
+                                <paper-item name="Enchantment">Enchantment</paper-item>
+                                <paper-item name="Evocation">Evocation</paper-item>
+                                <paper-item name="Illusion">Illusion</paper-item>
+                                <paper-item name="Necromancy">Necromancy</paper-item>
+                                <paper-item name="Transmutation">Transmutation</paper-item>
+                            </paper-listbox>
+                        </paper-dropdown-menu>
+                        <paper-dropdown-menu label="Level">
+                            <paper-listbox multi class="dropdown-content" attr-for-selected="level"
+                                           selected-values="{{spellLevels}}">
+                                <paper-item level="0">Cantrip</paper-item>
+                                <paper-item level="1">1st-level</paper-item>
+                                <paper-item level="2">2nd-level</paper-item>
+                                <paper-item level="3">3rd-level</paper-item>
+                                <paper-item level="4">4th-level</paper-item>
+                                <paper-item level="5">5th-level</paper-item>
+                                <paper-item level="6">6th-level</paper-item>
+                                <paper-item level="7">7th-level</paper-item>
+                                <paper-item level="8">8th-level</paper-item>
+                                <paper-item level="9">9th-level</paper-item>
+                            </paper-listbox>
+                        </paper-dropdown-menu>
+                        <paper-input style="width:206px" label="Name" value="{{spellName}}"></paper-input>
+                    </div>
+                </div>
+            </iron-collapse>
         </div>
-            </div>
-        <iron-ajax url="/data.json" last-response="[[data]]" auto></iron-ajax>
-                <template is="dom-repeat" items="[[data.spells]]" as="item" sort="sortSpells" filter="filterSpells">
-                    <spell-card data="[[item]]"></spell-card>
-                </template>
+        <iron-list items="[[filteredSpells]]">
+            <template>
+                <spell-card data="[[item]]"></spell-card>
+            </template>
+        </iron-list>
     </template>
 
     <script>
         Polymer({
             is: 'spell-cards',
-
             properties: {
                 playerClasses: {
                     type: Array
@@ -116,16 +116,38 @@
                     type: Array
                 },
                 spellName: {
-                    type: String
+                    type: String,
+                    notify: true,
+                    observer: "applyFilters"
                 },
                 spells: {
                     type: Array,
                     notify: true,
-                    value: []
+                    value: function () {
+                        return [];
+                    },
+                    observer: "applyFilters"
+                },
+                filteredSpells: {
+                    type: Array
+                },
+                collapseSpellSearch: {
+                    type: Boolean,
+                    observer: "shouldCollapseSpellSearch"
+                },
+                showSpellSearch: {
+                    type: Boolean
                 }
             },
 
-
+            observers: [
+                "applyFilters(spellSchools.*)",
+                "applyFilters(spellLevels.*)",
+                "applyFilters(playerClasses.*)"
+            ],
+            toggleSearchVisibility: function () {
+                this.$.spellSearchCollapse.toggle();
+            },
             components: function (spell) {
                 var cmpts = spell.components.join(', ');
                 if (spell.material !== undefined) {
@@ -133,7 +155,6 @@
                 }
                 return cmpts;
             },
-
             spellLevelSchoolDescription: function (spell) {
                 var desc = "";
                 if (spell.level == 0) {
@@ -157,16 +178,19 @@
                 }
                 return desc;
             },
-
-            behaviors: [Polymer.NeonAnimatableBehavior],
-
             ready: function () {
-
+                this.showSpellSearch = this.collapseSpellSearch;
             },
             applyFilters: function (e) {
-                this.$.spellList.render();
+                var newFilteredSpells = [];
+                for (var i = 0; i < this.spells.length; i++) {
+                    var s = this.spells[i];
+                    if (this.filterSpell(s)) {
+                        newFilteredSpells.push(s);
+                    }
+                }
+                this.set('filteredSpells', newFilteredSpells);
             },
-
             clearFilters: function (e) {
                 this.spellLevels = [];
                 this.playerClasses = [];
@@ -174,8 +198,6 @@
                 this.spellName = "";
                 this.$.spellList.render();
             },
-
-
             filterSpell: function (spell) {
                 var classMatches = true;
                 if (this.playerClasses !== undefined && this.playerClasses.length > 0) {
@@ -214,9 +236,14 @@
 
                 return classMatches && levelMatches && schoolMatches && nameOverlaps;
             },
-
             sortSpells: function (a, b) {
                 return a.name.localeCompare(b.name)
+            },
+            toggleDrawer: function () {
+                this.fire('drawerToggle', {});
+            },
+            toggleSearch: function () {
+                this.querySelector('iron-collapse').toggle();
             }
         });
     </script>
