@@ -8,10 +8,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/combat-tracker/combat-tracker.html" afterPath="$PROJECT_DIR$/src/combat-tracker/combat-tracker.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/home-page/home-page.html" afterPath="$PROJECT_DIR$/src/home-page/home-page.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/monster-cards/monster-card.html" afterPath="$PROJECT_DIR$/src/monster-cards/monster-card.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/monster-cards/monster-cards.html" afterPath="$PROJECT_DIR$/src/monster-cards/monster-cards.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sapphire-reserve/sapphire-reserve.html" afterPath="$PROJECT_DIR$/src/sapphire-reserve/sapphire-reserve.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/spell-cards/spell-card.html" afterPath="$PROJECT_DIR$/src/spell-cards/spell-card.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/spell-cards/spell-cards.html" afterPath="$PROJECT_DIR$/src/spell-cards/spell-cards.html" />
     </list>
     <ignored path="DM-Helper-Web.iws" />
@@ -33,28 +30,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="spell-cards.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="spell-cards.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/spell-cards/spell-cards.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="383">
-              <caret line="106" column="19" selection-start-line="106" selection-start-column="19" selection-end-line="106" selection-end-column="19" />
+            <state relative-caret-position="-213">
+              <caret line="171" column="0" selection-start-line="171" selection-start-column="0" selection-end-line="171" selection-end-column="0" />
               <folding>
                 <element signature="n#iron-collapse#0;n#div#0;n#template#0;n#dom-module#0;n#!!top" expanded="false" />
                 <element signature="n#style#0;n#paper-input#0;n#div#0;n#div#0;n#iron-collapse#0;n#div#0;n#template#0;n#dom-module#0;n#!!top" expanded="true" />
-                <element signature="e#7280#7510#0" expanded="false" />
-                <element signature="e#7570#8320#0" expanded="false" />
-                <element signature="e#8882#9097#0" expanded="false" />
-                <element signature="e#10809#10876#0" expanded="false" />
+                <element signature="e#6924#7154#0" expanded="false" />
+                <element signature="e#7214#7964#0" expanded="false" />
+                <element signature="e#8461#8676#0" expanded="false" />
+                <element signature="e#10388#10455#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="combat-tracker.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="combat-tracker.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/combat-tracker/combat-tracker.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="17" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
+            <state relative-caret-position="391">
+              <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -63,8 +60,8 @@
       <file leaf-file-name="monster-cards.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/monster-cards/monster-cards.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+            <state relative-caret-position="425">
+              <caret line="25" column="46" selection-start-line="25" selection-start-column="46" selection-end-line="25" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -73,8 +70,8 @@
       <file leaf-file-name="home-page.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/home-page/home-page.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" column="23" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
+            <state relative-caret-position="323">
+              <caret line="19" column="46" selection-start-line="19" selection-start-column="46" selection-end-line="19" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -139,12 +136,12 @@
         <option value="$PROJECT_DIR$/firebase-debug.log" />
         <option value="$PROJECT_DIR$/bower.json" />
         <option value="$PROJECT_DIR$/src/spell-cards/spell-card.html" />
-        <option value="$PROJECT_DIR$/src/home-page/home-page.html" />
         <option value="$PROJECT_DIR$/src/monster-cards/monster-card.html" />
-        <option value="$PROJECT_DIR$/src/combat-tracker/combat-tracker.html" />
         <option value="$PROJECT_DIR$/src/sapphire-reserve/sapphire-reserve.html" />
-        <option value="$PROJECT_DIR$/src/monster-cards/monster-cards.html" />
         <option value="$PROJECT_DIR$/src/spell-cards/spell-cards.html" />
+        <option value="$PROJECT_DIR$/src/monster-cards/monster-cards.html" />
+        <option value="$PROJECT_DIR$/src/home-page/home-page.html" />
+        <option value="$PROJECT_DIR$/src/combat-tracker/combat-tracker.html" />
       </list>
     </option>
   </component>
@@ -415,7 +412,7 @@
       <workItem from="1472952672320" duration="964000" />
       <workItem from="1472996040651" duration="595000" />
       <workItem from="1473089540853" duration="186000" />
-      <workItem from="1473089794114" duration="17919000" />
+      <workItem from="1473089794114" duration="19462000" />
     </task>
     <task id="LOCAL-00001" summary="Material Design with the spell cards and filtering for class, spell level, school of magic.">
       <created>1472090108880</created>
@@ -431,11 +428,18 @@
       <option name="project" value="LOCAL" />
       <updated>1472665349791</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Finished Spell Cards. Added basic boilerplate to all other elements.">
+      <created>1473117003928</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1473117003928</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="130755000" />
+    <option name="totallyTimeSpent" value="132298000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -493,7 +497,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Material Design with the spell cards and filtering for class, spell level, school of magic." />
     <MESSAGE value="Fixed spell-card spell description problem and routing everything to index.html" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed spell-card spell description problem and routing everything to index.html" />
+    <MESSAGE value="Finished Spell Cards. Added basic boilerplate to all other elements." />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished Spell Cards. Added basic boilerplate to all other elements." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -537,10 +542,10 @@
           <folding>
             <element signature="n#iron-collapse#0;n#div#0;n#template#0;n#dom-module#0;n#!!top" expanded="false" />
             <element signature="n#style#0;n#paper-input#0;n#div#0;n#div#0;n#iron-collapse#0;n#div#0;n#template#0;n#dom-module#0;n#!!top" expanded="true" />
-            <element signature="e#7280#7510#0" expanded="false" />
-            <element signature="e#7570#8320#0" expanded="false" />
-            <element signature="e#8882#9097#0" expanded="false" />
-            <element signature="e#10809#10876#0" expanded="false" />
+            <element signature="e#6924#7154#0" expanded="false" />
+            <element signature="e#7214#7964#0" expanded="false" />
+            <element signature="e#8461#8676#0" expanded="false" />
+            <element signature="e#10388#10455#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -594,10 +599,10 @@
           <folding>
             <element signature="n#iron-collapse#0;n#div#0;n#template#0;n#dom-module#0;n#!!top" expanded="false" />
             <element signature="n#style#0;n#paper-input#0;n#div#0;n#div#0;n#iron-collapse#0;n#div#0;n#template#0;n#dom-module#0;n#!!top" expanded="true" />
-            <element signature="e#7280#7510#0" expanded="false" />
-            <element signature="e#7570#8320#0" expanded="false" />
-            <element signature="e#8882#9097#0" expanded="false" />
-            <element signature="e#10809#10876#0" expanded="false" />
+            <element signature="e#6924#7154#0" expanded="false" />
+            <element signature="e#7214#7964#0" expanded="false" />
+            <element signature="e#8461#8676#0" expanded="false" />
+            <element signature="e#10388#10455#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -658,10 +663,10 @@
           <folding>
             <element signature="n#iron-collapse#0;n#div#0;n#template#0;n#dom-module#0;n#!!top" expanded="false" />
             <element signature="n#style#0;n#paper-input#0;n#div#0;n#div#0;n#iron-collapse#0;n#div#0;n#template#0;n#dom-module#0;n#!!top" expanded="true" />
-            <element signature="e#7280#7510#0" expanded="false" />
-            <element signature="e#7570#8320#0" expanded="false" />
-            <element signature="e#8882#9097#0" expanded="false" />
-            <element signature="e#10809#10876#0" expanded="false" />
+            <element signature="e#6924#7154#0" expanded="false" />
+            <element signature="e#7214#7964#0" expanded="false" />
+            <element signature="e#8461#8676#0" expanded="false" />
+            <element signature="e#10388#10455#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -810,30 +815,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/combat-tracker/combat-tracker.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="17" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/home-page/home-page.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="23" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/monster-cards/monster-cards.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/monster-cards/monster-card.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -852,16 +833,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/spell-cards/spell-cards.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="383">
-          <caret line="106" column="19" selection-start-line="106" selection-start-column="19" selection-end-line="106" selection-end-column="19" />
+        <state relative-caret-position="-213">
+          <caret line="171" column="0" selection-start-line="171" selection-start-column="0" selection-end-line="171" selection-end-column="0" />
           <folding>
             <element signature="n#iron-collapse#0;n#div#0;n#template#0;n#dom-module#0;n#!!top" expanded="false" />
             <element signature="n#style#0;n#paper-input#0;n#div#0;n#div#0;n#iron-collapse#0;n#div#0;n#template#0;n#dom-module#0;n#!!top" expanded="true" />
-            <element signature="e#7280#7510#0" expanded="false" />
-            <element signature="e#7570#8320#0" expanded="false" />
-            <element signature="e#8882#9097#0" expanded="false" />
-            <element signature="e#10809#10876#0" expanded="false" />
+            <element signature="e#6924#7154#0" expanded="false" />
+            <element signature="e#7214#7964#0" expanded="false" />
+            <element signature="e#8461#8676#0" expanded="false" />
+            <element signature="e#10388#10455#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/home-page/home-page.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="46" selection-start-line="19" selection-start-column="46" selection-end-line="19" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/monster-cards/monster-cards.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" column="46" selection-start-line="25" selection-start-column="46" selection-end-line="25" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/combat-tracker/combat-tracker.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -21,7 +21,10 @@
     </template>
     <script>
         Polymer({
-            is:"monster-cards"
+            is:"monster-cards",
+            toggleDrawer:function(){
+                this.fire('drawerToggle', {});
+            }
         });
     </script>
 </dom-module>

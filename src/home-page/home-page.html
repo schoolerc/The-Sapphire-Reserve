@@ -15,7 +15,10 @@
     </template>
     <script>
         Polymer({
-            is:"home-page"
+            is:"home-page",
+            toggleDrawer: function(){
+                this.fire('toggleDrawer', {});
+            }
         });
     </script>
 </dom-module>
