@@ -79,7 +79,7 @@
                                      exit-animation="slide-left-animation" attr-for-selected="key">
                     <home-page key=""></home-page>
                     <spell-cards id="spellCards" key="spell-cards"></spell-cards>
-                    <monster-cards id=monsterCards" key="monster-cards"></monster-cards>
+                    <monster-cards id="monsterCards" key="monster-cards"></monster-cards>
                     <combat-tracker key="combat-tracker"></combat-tracker>
                 </neon-animated-pages>
             </paper-header-panel>
@@ -98,19 +98,35 @@
                 content: {
                     type: Object,
                     notify: true,
-                    observer: "onContentChanged"
+                    observer: "_onContentChanged",
+                    value:function(){
+                        return{
+                            spells:[],
+                            monsters:[]
+                        };
+                    }
                 }
             },
-            onContentChanged: function () {
+            behaviors:[
+                    Polymer.IronResizableBehavior
+            ],
+            listeners:{
+                'drawer-toggle':'_onDrawerToggle',
+                'iron-resize': '_onIronResize'
+            },
+            _onContentChanged: function () {
                 this.$.spellCards.set('spells', this.content.spells);
                 this.$.monsterCards.set('monsters', this.content.monsters);
             },
             ready: function () {
-                this.addEventListener('drawerToggle', this.drawerToggle);
             },
 
-            drawerToggle: function (event) {
+            _onDrawerToggle: function (event) {
                 this.$.drawer.togglePanel();
+            },
+            _onIronResize:function(e){
+                this.$.spellCards.notifyResize();
+                this.$.monsterCards.notifyResize();
             }
 
         });

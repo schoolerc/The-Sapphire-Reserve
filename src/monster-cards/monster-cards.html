@@ -1,6 +1,7 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
 <link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="/bower_components/iron-iconset/iron-iconset.html">
+<link rel="import" href="/bower_components/iron-resizable-behavior/iron-resizable-behavior.html">
 <dom-module id="monster-cards">
     <template>
         <style>
@@ -22,9 +23,31 @@
     <script>
         Polymer({
             is:"monster-cards",
+            properties:{
+                monsters:{
+                    type:Array,
+                },
+                filteredMonsters:{
+                    type:Array,
+                    notify:true
+                }
+            },
             toggleDrawer:function(){
-                this.fire('drawerToggle', {});
+                this.fire('drawer-toggle', {});
+            },
+            attached:function(){
+                this.async(this.notifyResize, 1);
+            },
+            ready:function(){
+            },
+
+            behaviors:[Polymer.IronResizableBehavior],
+            listeners: {
+                'iron-resize': '_onIronResize'
+            },
+            _onIronResize:function(e){
+
             }
-        });
+        })
     </script>
 </dom-module>

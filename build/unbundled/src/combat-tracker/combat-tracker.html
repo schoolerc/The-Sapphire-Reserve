@@ -1,1 +1,17 @@
-<html><head></head><body></body></html>
+<html><head><link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="/bower_components/iron-iconset/iron-iconset.html">
+</head><body><dom-module id="combat-tracker">
+    <template>
+        <style>
+            :host{
+                display:block;
+            }
+        </style>
+        <paper-toolbar>
+            <paper-icon-button icon="menu" paper-drawer-toggle="" on-tap="toggleDrawer"></paper-icon-button>
+            <span class="title">Combat Tracker</span>
+        </paper-toolbar>
+    </template>
+    <script>Polymer({is:"combat-tracker",toggleDrawer:function(){this.fire("drawerToggle",{})}});</script>
+</dom-module></body></html>

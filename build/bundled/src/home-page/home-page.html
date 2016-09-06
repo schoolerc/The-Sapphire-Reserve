@@ -1,5 +1,6 @@
 <html><head><link rel="import" href="/bower_components/polymer/polymer.html">
-
+<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="/bower_components/iron-iconset/iron-iconset.html">
 </head><body><dom-module id="home-page">
     <template>
         <style>
@@ -7,6 +8,10 @@
                 display:block;
             }
         </style>
+        <paper-toolbar>
+            <paper-icon-button icon="menu" paper-drawer-toggle="" on-tap="toggleDrawer"></paper-icon-button>
+            <span class="title">Home</span>
+        </paper-toolbar>
     </template>
-    <script>Polymer({is:"home-page"});</script>
+    <script>Polymer({is:"home-page",toggleDrawer:function(){this.fire("toggleDrawer",{})}});</script>
 </dom-module></body></html>

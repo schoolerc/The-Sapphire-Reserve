@@ -138,6 +138,12 @@
                 "applyFilters(spellLevels.*)",
                 "applyFilters(playerClasses.*)"
             ],
+            behaviors:[
+                    Polymer.IronResizableBehavior
+            ],
+            listeners:{
+                'iron-resize':'_onIronResize'
+            },
             components: function (spell) {
                 var cmpts = spell.components.join(', ');
                 if (spell.material !== undefined) {
@@ -167,6 +173,9 @@
                     desc += " (ritual)";
                 }
                 return desc;
+            },
+            attached:function(){
+                this.async(this.notifyResize, 1);
             },
             ready: function () {
             },
@@ -229,10 +238,13 @@
                 return a.name.localeCompare(b.name)
             },
             toggleDrawer: function () {
-                this.fire('drawerToggle', {});
+                this.fire('drawer-toggle', {});
             },
             toggleSearch: function () {
                 this.querySelector('iron-collapse').toggle();
+            },
+            _onIronResize:function(){
+                this.querySelector('iron-list').notifyResize();
             }
         });
     </script>

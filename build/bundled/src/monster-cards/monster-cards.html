@@ -1,1 +1,23 @@
-<html><head></head><body></body></html>
+<html><head><link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="/bower_components/iron-iconset/iron-iconset.html">
+</head><body><dom-module id="monster-cards">
+    <template>
+        <style>
+            :host{
+                display:block;
+            }
+        </style>
+        <paper-toolbar>
+            <paper-icon-button icon="menu" paper-drawer-toggle="" on-tap="toggleDrawer"></paper-icon-button>
+            <span class="title">Monster Cards</span>
+            <paper-icon-button icon="search" on-tap="toggleSearch"></paper-icon-button>
+        </paper-toolbar>
+        <iron-collapse>
+            <div>
+                
+            </div>
+        </iron-collapse>
+    </template>
+    <script>Polymer({is:"monster-cards",toggleDrawer:function(){this.fire("drawerToggle",{})}});</script>
+</dom-module></body></html>
