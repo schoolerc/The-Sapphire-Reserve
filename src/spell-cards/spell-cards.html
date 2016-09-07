@@ -189,13 +189,6 @@
                 }
                 this.set('filteredSpells', newFilteredSpells);
             },
-            clearFilters: function (e) {
-                this.spellLevels = [];
-                this.playerClasses = [];
-                this.spellSchools = [];
-                this.spellName = "";
-                this.$.spellList.render();
-            },
             filterSpell: function (spell) {
                 var classMatches = true;
                 if (this.playerClasses !== undefined && this.playerClasses.length > 0) {
