@@ -121,12 +121,10 @@
             ready: function () {
             },
 
-            _onDrawerToggle: function (event) {
+            _onDrawerToggle: function () {
                 this.$.drawer.togglePanel();
             },
-            _onIronResize:function(e){
-                this.$.spellCards.notifyResize();
-                this.$.monsterCards.notifyResize();
+            _onIronResize:function(){
             }
 
         });

@@ -90,7 +90,7 @@
                                 <paper-item level="9">9th-level</paper-item>
                             </paper-listbox>
                         </paper-dropdown-menu>
-                        <paper-input style="width:206px" label="Name" value="{{spellName}}"></paper-input>
+                        <paper-input style="width:206px; clear:right" label="Name" value="{{spellName}}"></paper-input>
                     </div>
                 </div>
             </iron-collapse>
@@ -130,7 +130,7 @@
                 },
                 filteredSpells: {
                     type: Array
-                },
+                }
             },
 
             observers: [
@@ -175,11 +175,10 @@
                 return desc;
             },
             attached:function(){
-                this.async(this.notifyResize, 1);
             },
             ready: function () {
             },
-            applyFilters: function (e) {
+            applyFilters: function () {
                 var newFilteredSpells = [];
                 for (var i = 0; i < this.spells.length; i++) {
                     var s = this.spells[i];
@@ -193,7 +192,7 @@
                 var classMatches = true;
                 if (this.playerClasses !== undefined && this.playerClasses.length > 0) {
                     classMatches = false;
-                    this.playerClasses.forEach(function (item, index, array) {
+                    this.playerClasses.forEach(function (item) {
                         if (spell.class.indexOf(item) !== -1) {
                             classMatches = true;
                         }
@@ -203,7 +202,7 @@
                 var levelMatches = true;
                 if (this.spellLevels !== undefined && this.spellLevels.length > 0) {
                     levelMatches = false;
-                    this.spellLevels.forEach(function (item, index, array) {
+                    this.spellLevels.forEach(function (item) {
                         if (spell.level === parseInt(item)) {
                             levelMatches = true;
                         }
@@ -213,7 +212,7 @@
                 var schoolMatches = true;
                 if (this.spellSchools !== undefined && this.spellSchools.length > 0) {
                     schoolMatches = false;
-                    this.spellSchools.forEach(function (item, index, array) {
+                    this.spellSchools.forEach(function (item) {
                         if (spell.school === item) {
                             schoolMatches = true;
                         }
@@ -237,7 +236,6 @@
                 this.querySelector('iron-collapse').toggle();
             },
             _onIronResize:function(){
-                this.querySelector('iron-list').notifyResize();
             }
         });
     </script>

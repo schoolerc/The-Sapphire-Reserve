@@ -1,17 +1,63 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
 <link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="/bower_components/iron-iconset/iron-iconset.html">
+<link rel="import" href="/bower_components/paper-card/paper-card.html">
+<link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="/bower_components/iron-collapse/iron-collapse.html">
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
 <dom-module id="monster-card">
     <template>
         <style>
             :host{
                 display:block;
             }
+
+            paper-card{
+                margin-bottom:10px;
+            }
         </style>
+        <paper-card heading="[[data.name]]" elevation="1">
+            <div class="card-content">
+                <div class="layout vertical">
+                    <div>[[_creatureType(data)]]</div>
+                    <div><b>Armor Class:</b>[[data.armor_class]]</div>
+                    <div><b>Hit Points:</b>[[_creatureHitPoints(data)]]</div>
+                    <div><b>Speed:</b>[[data.speed]]</div>
+                </div>
+            </div>
+            <div class="card-actions">
+                <paper-button on-tap="toggleStats">Stats</paper-button>
+                <paper-button on-tap="toggleActions">Actions</paper-button>
+                <template is="dom-if" if="[[_hasAbilities(data)]]">
+                    <paper-button on-tap="toggleAbilities">Abilities</paper-button>
+                </template>
+                <template is="dom-if" if="[[_hasLegendaryActions(data)]]">
+                    <paper-button on-tap="toggleLegendaryActions">Legendary Actions</paper-button>
+                </template>
+            </div>
+        </paper-card>
     </template>
     <script>
         Polymer({
-            is:"monster-card"
+            is:"monster-card",
+            properties:{
+                data: {
+                    type: Object
+                }
+            },
+
+            _creatureType:function(monster){
+                return monster.size + " " + monster.type + ", " + monster.alignment;
+            },
+            _creatureHitPoints:function(monster){
+                return monster.hit_points + " (" + monster.hit_dice + ")";
+            },
+            _hasAbilties: function(monster){
+                return monster.special_abilites !== undefined && monster.special_abilities.length > 0;
+            },
+            _hasLegendaryActions: function(mosnter){
+                return monster.legendary_actions !== undefined && monster.legendary_actions.length > 0;
+            }
         });
     </script>
 </dom-module>

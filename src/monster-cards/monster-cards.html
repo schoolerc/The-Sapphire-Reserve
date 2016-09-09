@@ -5,8 +5,13 @@
 <dom-module id="monster-cards">
     <template>
         <style>
-            :host{
-                display:block;
+            :host {
+                display: flex;
+                flex-direction: column;
+            }
+
+            iron-list {
+                flex: 1 1 auto;
             }
         </style>
         <paper-toolbar>
@@ -14,11 +19,18 @@
             <span class="title">Monster Cards</span>
             <paper-icon-button icon="search" on-tap="toggleSearch"></paper-icon-button>
         </paper-toolbar>
+        <div>
         <iron-collapse>
             <div>
                 <!-- Put Search DOM here-->
             </div>
         </iron-collapse>
+        </div>
+        <iron-list items="[[monsters]]">
+            <template>
+                <monster-card data="[[item]]"></monster-card>
+            </template>
+        </iron-list>
     </template>
     <script>
         Polymer({
@@ -36,9 +48,9 @@
                 this.fire('drawer-toggle', {});
             },
             attached:function(){
-                this.async(this.notifyResize, 1);
             },
             ready:function(){
+                this.filteredMonsters = this.monsters;
             },
 
             behaviors:[Polymer.IronResizableBehavior],
@@ -46,7 +58,6 @@
                 'iron-resize': '_onIronResize'
             },
             _onIronResize:function(e){
-
             }
         })
     </script>

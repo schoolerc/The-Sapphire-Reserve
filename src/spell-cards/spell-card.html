@@ -1,6 +1,7 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
 <link rel="import" href="/bower_components/paper-material/paper-material.html">
 <link rel="import" href="/bower_components/paper-item/paper-item.html">
+<link rel="import" href="/bower_components/paper-card/paper-card.html">
 <link rel="import" href="/bower_components/paper-item/paper-item-body.html">
 
 <dom-module id="spell-card">
@@ -10,7 +11,7 @@
                 display: block;
             }
 
-            paper-material {
+            paper-card {
                 margin-bottom: 10px;
             }
 
@@ -19,26 +20,25 @@
                     white-space: normal;
                 }
             }
-            h5{
+            h4{
+                margin-top:0;
                 margin-bottom:5px;
+                font-weight:normal;
             }
         </style>
 
-        <paper-material elevation="1">
-            <paper-item>
-                <paper-item-body two-line>
+            <paper-card heading="[[data.name]]" elevation="1">
+                <div class="card-content">
                     <div>
-                        <h3>[[data.name]]</h3>
-                        <h5>[[spellLevelSchoolDescription(data)]]</h5>
+                        <h4>[[spellLevelSchoolDescription(data)]]</h4>
                         <div><b>Casting Time: </b>[[data.casting_time]]</div>
                         <div><b>Range: </b>[[data.range]]</div>
                         <div><b>Components: </b>[[components(data)]]</div>
                         <div><b>Duration: </b>[[data.duration]]</div>
                     </div>
                     <div secondary id="description">[[spellDescription(data)]]</div>
-                </paper-item-body>
-            </paper-item>
-        </paper-material>
+                </div>
+            </paper-card>
     </template>
 
     <script>
