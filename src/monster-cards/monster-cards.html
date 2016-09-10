@@ -2,6 +2,7 @@
 <link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="/bower_components/iron-iconset/iron-iconset.html">
 <link rel="import" href="/bower_components/iron-resizable-behavior/iron-resizable-behavior.html">
+<link rel="import" href="monster-card.html">
 <dom-module id="monster-cards">
     <template>
         <style>
@@ -12,6 +13,10 @@
 
             iron-list {
                 flex: 1 1 auto;
+            }
+            monster-card{
+                padding-top:10px;
+                padding-right:10px;
             }
         </style>
         <paper-toolbar>
@@ -41,16 +46,20 @@
                 },
                 filteredMonsters:{
                     type:Array,
-                    notify:true
                 }
             },
             toggleDrawer:function(){
                 this.fire('drawer-toggle', {});
             },
+            toggleSearch:function(){
+            },
             attached:function(){
             },
             ready:function(){
                 this.filteredMonsters = this.monsters;
+            },
+            onMonstersChanged:function(){
+                this.querySelector('iron-list').items = this.monsters;
             },
 
             behaviors:[Polymer.IronResizableBehavior],

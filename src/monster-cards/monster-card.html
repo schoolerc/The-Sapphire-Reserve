@@ -5,17 +5,17 @@
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="/bower_components/iron-collapse/iron-collapse.html">
 <link rel="import" href="/bower_components/paper-button/paper-button.html">
+<link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="/bower_components/paper-material/paper-material.html">
 <dom-module id="monster-card">
     <template>
+        <style include="iron-flex iron-flex-layout"></style>
         <style>
             :host{
                 display:block;
             }
-
-            paper-card{
-                margin-bottom:10px;
-            }
         </style>
+        <div class="layout horizontal">
         <paper-card heading="[[data.name]]" elevation="1">
             <div class="card-content">
                 <div class="layout vertical">
@@ -23,39 +23,68 @@
                     <div><b>Armor Class:</b>[[data.armor_class]]</div>
                     <div><b>Hit Points:</b>[[_creatureHitPoints(data)]]</div>
                     <div><b>Speed:</b>[[data.speed]]</div>
-                </div>
+                    </div>
             </div>
             <div class="card-actions">
                 <paper-button on-tap="toggleStats">Stats</paper-button>
                 <paper-button on-tap="toggleActions">Actions</paper-button>
-                <template is="dom-if" if="[[_hasAbilities(data)]]">
+                <template is="dom-if" if="[[hasAbilities(data)]]">
                     <paper-button on-tap="toggleAbilities">Abilities</paper-button>
                 </template>
-                <template is="dom-if" if="[[_hasLegendaryActions(data)]]">
+                <template is="dom-if" if="[[hasLegendaryActions(data)]]">
                     <paper-button on-tap="toggleLegendaryActions">Legendary Actions</paper-button>
                 </template>
             </div>
         </paper-card>
+            <iron-collapse horizontal id="statsCollapse">
+                <paper-material elevation="1"><div>STATS</div></paper-material>
+            </iron-collapse>
+            <iron-collapse horizontal id="actionsCollapse">
+                <paper-material elevation="1"><div>ACTIONS</div></paper-material>
+            </iron-collapse>
+            <iron-collapse horizontal id="abilitiesCollapse">
+                <paper-material elevation="1"><div>ABILITIES</div></paper-material>
+            </iron-collapse>
+            <iron-collapse horizontal id="legendaryCollapse">
+                <paper-material elevation="1"><div>LEGENDARY ACTIONS</div></paper-material>
+            </iron-collapse>
+            </div>
     </template>
     <script>
         Polymer({
             is:"monster-card",
             properties:{
                 data: {
-                    type: Object
+                    type: Object,
+                    notify:true,
+                    observer: 'onDataChanged'
                 }
             },
-
+            onDataChanged:function(){
+                console.log(this.data);
+            },
+            toggleStats:function(){
+                this.$.statsCollapse.toggle();
+            },
+            toggleActions:function(){
+                this.$.actionsCollapse.toggle();
+            },
+            toggleAbilities:function(){
+                this.$.abilitiesCollapse.toggle();
+            },
+            toggleLegendaryActions:function(){
+                this.$.legendaryCollapse.toggle();
+            },
             _creatureType:function(monster){
                 return monster.size + " " + monster.type + ", " + monster.alignment;
             },
             _creatureHitPoints:function(monster){
                 return monster.hit_points + " (" + monster.hit_dice + ")";
             },
-            _hasAbilties: function(monster){
-                return monster.special_abilites !== undefined && monster.special_abilities.length > 0;
+            hasAbilities: function(monster){
+                return monster.special_abilities !== undefined && monster.special_abilities.length > 0;
             },
-            _hasLegendaryActions: function(mosnter){
+            hasLegendaryActions: function(monster){
                 return monster.legendary_actions !== undefined && monster.legendary_actions.length > 0;
             }
         });
