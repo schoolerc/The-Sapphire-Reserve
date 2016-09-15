@@ -1,0 +1,41 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/iron-overlay-behavior/iron-overlay-behavior.html">
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
+<link rel="import" href="/bower_components/paper-dialog/paper-dialog.html">
+
+<dom-module is="filter-popup">
+    <template>
+        <style></style>
+        <paper-dialog class="layout horizontal">
+            <h2>[[heading]]</h2>
+            <paper-dialog-scrollable>
+                <content></content>
+            </paper-dialog-scrollable>
+            <div class="buttons">
+                <paper-button on-tap="_apply">Apply</paper-button>
+                <paper-button on-tap="_clear">Clear</paper-button></div>
+        </paper-dialog>
+    </template>
+    <script>
+        Polymer({
+            is: 'filter-popup',
+            behaviors: [Polymer.IronOverlayBehavior],
+            properties: {
+                heading:String
+            },
+            _apply:function()
+            {
+                var params = {};
+                var content = this.shadowRoot.querySelector('content');
+
+
+
+                this.fire('filter-apply', {});
+            },
+            _clear:function()
+            {
+                this.fire('filter-clear', {});
+            }
+        });
+    </script>
+</dom-module>
