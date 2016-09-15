@@ -1,5 +1,5 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
-<link rel="import" href="../spell-cards/spell-cards.html">
+<link rel="import" href="../spell-list/spell-list.html">
 <link rel="import" href="/bower_components/paper-drawer-panel/paper-drawer-panel.html">
 <link rel="import" href="/bower_components/paper-toolbar/paper-toolbar.html">
 <link rel="import" href="/bower_components/paper-listbox/paper-listbox.html">
@@ -78,7 +78,7 @@
                 <neon-animated-pages id="content" selected="{{data.item}}" entry-animation="slide-from-right-animation"
                                      exit-animation="slide-left-animation" attr-for-selected="key">
                     <home-page key=""></home-page>
-                    <spell-cards id="spellCards" key="spell-cards"></spell-cards>
+                    <spell-list id="spellCards" key="spell-cards"></spell-list>
                     <monster-cards id="monsterCards" key="monster-cards"></monster-cards>
                     <combat-tracker key="combat-tracker"></combat-tracker>
                 </neon-animated-pages>

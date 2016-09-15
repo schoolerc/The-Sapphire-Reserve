@@ -13,42 +13,18 @@
         <style>
             :host{
                 display:block;
+                min-width:300px;
             }
         </style>
-        <div class="layout horizontal">
-        <paper-card heading="[[data.name]]" elevation="1">
-            <div class="card-content">
-                <div class="layout vertical">
-                    <div>[[_creatureType(data)]]</div>
-                    <div><b>Armor Class:</b>[[data.armor_class]]</div>
-                    <div><b>Hit Points:</b>[[_creatureHitPoints(data)]]</div>
-                    <div><b>Speed:</b>[[data.speed]]</div>
-                    </div>
-            </div>
-            <div class="card-actions">
-                <paper-button on-tap="toggleStats">Stats</paper-button>
-                <paper-button on-tap="toggleActions">Actions</paper-button>
-                <template is="dom-if" if="[[hasAbilities(data)]]">
-                    <paper-button on-tap="toggleAbilities">Abilities</paper-button>
-                </template>
-                <template is="dom-if" if="[[hasLegendaryActions(data)]]">
-                    <paper-button on-tap="toggleLegendaryActions">Legendary Actions</paper-button>
-                </template>
-            </div>
-        </paper-card>
-            <iron-collapse horizontal id="statsCollapse">
-                <paper-material elevation="1"><div>STATS</div></paper-material>
-            </iron-collapse>
-            <iron-collapse horizontal id="actionsCollapse">
-                <paper-material elevation="1"><div>ACTIONS</div></paper-material>
-            </iron-collapse>
-            <iron-collapse horizontal id="abilitiesCollapse">
-                <paper-material elevation="1"><div>ABILITIES</div></paper-material>
-            </iron-collapse>
-            <iron-collapse horizontal id="legendaryCollapse">
-                <paper-material elevation="1"><div>LEGENDARY ACTIONS</div></paper-material>
-            </iron-collapse>
-            </div>
+            <paper-material on-tap="expand">
+        <paper-item>
+            <paper-item-body two-line>
+                <div>[[data.name]]</div>
+                <div secondary>Challenge Rating: [[_creatureChallengeRating(data)]]</div>
+            </paper-item-body>
+        </paper-item>
+            </paper-material>
+
     </template>
     <script>
         Polymer({
@@ -60,20 +36,8 @@
                     observer: 'onDataChanged'
                 }
             },
-            onDataChanged:function(){
-                console.log(this.data);
-            },
-            toggleStats:function(){
-                this.$.statsCollapse.toggle();
-            },
-            toggleActions:function(){
-                this.$.actionsCollapse.toggle();
-            },
-            toggleAbilities:function(){
-                this.$.abilitiesCollapse.toggle();
-            },
-            toggleLegendaryActions:function(){
-                this.$.legendaryCollapse.toggle();
+            behaviors:[Polymer.IronResizableBehavior],
+            onDataChanged:function() {
             },
             _creatureType:function(monster){
                 return monster.size + " " + monster.type + ", " + monster.alignment;
@@ -81,11 +45,128 @@
             _creatureHitPoints:function(monster){
                 return monster.hit_points + " (" + monster.hit_dice + ")";
             },
-            hasAbilities: function(monster){
-                return monster.special_abilities !== undefined && monster.special_abilities.length > 0;
+            _creatureChallengeRating:function(monster)
+            {
+                return monster.challenge_rating + " (" + this._xpValue(monster.challenge_rating) + ")";
             },
-            hasLegendaryActions: function(monster){
-                return monster.legendary_actions !== undefined && monster.legendary_actions.length > 0;
+            _xpValue: function(cr) {
+                if(cr == "1/8")
+                {
+                    return "25";
+                }
+                if(cr == "1/4")
+                {
+                    return "50";
+                }
+                if(cr == "1/2")
+                {
+                    return "100";
+                }
+                if(cr == "1")
+                {
+                    return "200";
+                }
+                if(cr == "2")
+                {
+                    return "450";
+                }
+                if(cr == "3")
+                {
+                    return "700";
+                }
+                if(cr == "4")
+                {
+                    return "1,100";
+                }
+                if(cr == "5")
+                {
+                    return "1,800";
+                }
+                if(cr == "6")
+                {
+                    return "2,300";
+                }
+                if(cr == "7")
+                {
+                    return "2,900";
+                }
+                if(cr == "8")
+                {
+                    return "3,900";
+                }
+                if(cr == "9")
+                {
+                    return "5,000";
+                }
+                if(cr == "10")
+                {
+                    return "5,900";
+                }
+                if(cr == "11")
+                {
+                    return "7,200";
+                }
+                if(cr == "12")
+                {
+                    return "8,400";
+                }
+                if(cr == "13")
+                {
+                    return "10,000";
+                }
+                if(cr == "14")
+                {
+                    return "11,500";
+                }
+                if(cr == "15")
+                {
+                    return "13,000";
+                }
+                if(cr == "16")
+                {
+                    return "15,000";
+                }
+                if(cr == "17")
+                {
+                    return "18,000";
+                }
+                if(cr == "18")
+                {
+                    return "20,000";
+                }
+                if(cr == "19")
+                {
+                    return "22,000";
+                }
+                if(cr == "20")
+                {
+                    return "25,000";
+                }
+                if(cr == "21")
+                {
+                    return "33,000";
+                }
+                if(cr == "22")
+                {
+                    return "41,000";
+                }
+                if(cr == "23")
+                {
+                    return "50,000";
+                }
+                if(cr == "24")
+                {
+                    return "62,000";
+                }
+                if(cr == "30")
+                {
+                    return "155,000";
+                }
+                return "0";
+            },
+            expand: function()
+            {
+                //Expand card to full view
             }
         });
     </script>

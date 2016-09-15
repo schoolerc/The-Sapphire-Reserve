@@ -19,7 +19,6 @@
     <script>
         Polymer({
             is: 'filter-popup',
-            behaviors: [Polymer.IronOverlayBehavior],
             properties: {
                 heading:String
             },
@@ -28,9 +27,17 @@
                 var params = {};
                 var content = this.shadowRoot.querySelector('content');
 
+                var fields = content.querySelectorAll('[name]');
+                for(var field of fields)
+                {
+                    if(field.value === undefined)
+                    {
+                        continue;
+                    }
+                    params[field.name] = field.value;
+                }
 
-
-                this.fire('filter-apply', {});
+                this.fire('filter-apply', params);
             },
             _clear:function()
             {

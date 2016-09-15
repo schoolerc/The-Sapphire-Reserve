@@ -1,6 +1,7 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
 <link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="/bower_components/iron-iconset/iron-iconset.html">
+<link rel="import" href="/bower_components/neon-animation/neon-animatable.html">
 <link rel="import" href="/bower_components/iron-resizable-behavior/iron-resizable-behavior.html">
 <link rel="import" href="monster-card.html">
 <dom-module id="monster-cards">
@@ -31,7 +32,7 @@
             </div>
         </iron-collapse>
         </div>
-        <iron-list items="[[monsters]]">
+        <iron-list items="[[monsters]]" grid target="document">
             <template>
                 <monster-card data="[[item]]"></monster-card>
             </template>

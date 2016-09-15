@@ -4,11 +4,11 @@
 <link rel="import" href="/bower_components/paper-card/paper-card.html">
 <link rel="import" href="/bower_components/paper-item/paper-item-body.html">
 
-<dom-module id="spell-card">
+<dom-module id="spell-details">
     <template>
         <style>
             :host {
-                display: block;
+                display: flex;
             }
 
             paper-card {
@@ -26,7 +26,9 @@
                 font-weight:normal;
             }
         </style>
-
+            <paper-toolbar>
+                <paper-icon-button icon="close" on-tap="close"></paper-icon-button>
+            </paper-toolbar>
             <paper-card heading="[[data.name]]" elevation="1">
                 <div class="card-content">
                     <div>
@@ -44,7 +46,7 @@
     <script>
         Polymer({
 
-            is: 'spell-card',
+            is: 'spell-details',
 
             properties: {
                 data: Object
