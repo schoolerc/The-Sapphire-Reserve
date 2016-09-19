@@ -1,109 +1,44 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/paper-scroll-header-panel/paper-scroll-header-panel.html">
+<link rel="import" href="/bower_components/neon-animation/neon-animated-pages.html">
+<link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="/bower_components/paper-toolbar/paper-toolbar.html">
 <link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="/bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
-<link rel="import" href="/bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="/bower_components/iron-iconset/iron-iconset.html">
 <link rel="import" href="/bower_components/paper-item/paper-item.html">
-<link rel="import" href="/bower_components/paper-input/paper-input.html">
-<link rel="import" href="/bower_components/paper-button/paper-button.html">
-<link rel="import" href="/bower_components/neon-animation/neon-animatable-behavior.html">
-<link rel="import" href="/bower_components/neon-animation/animations/fade-in-animation.html">
-<link rel="import" href="/bower_components/neon-animation/animations/fade-out-animation.html">
-<link rel="import" href="/bower_components/iron-list/iron-list.html">
-<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
-<link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="/bower_components/iron-media-query/iron-media-query.html">
-<link rel="import" href="/bower_components/iron-collapse/iron-collapse.html">
-<link rel="import" href="/bower_components/paper-scroll-header-panel/paper-scroll-header-panel.html">
-<link rel="import" href="../spell-details/spell-details.html">
+<link rel="import" href="list-view.html">
 <dom-module id="spell-list">
     <template>
         <style include="iron-flex iron-flex-alignment"></style>
         <style>
             :host {
-                display: flex;
-                flex-direction: column;
-                overflow-y: scroll;
+                display: block;
             }
-
-            iron-list {
-                flex: 1 1 auto;
+            neon-animated-pages{
+                height:100%;
             }
-
-            div > paper-input {
-                margin-right: 5px;
-                margin-left: 5px;
-                flex-grow: 1;
-            }
-
-            div > paper-dropdown-menu {
-                margin-right: 5px;
-                margin-left: 5px;
-                flex-grow: 1;
-            }
-
-            paper-item {
-                border-bottom: 1px solid var(--divider-color);
+            list-view{
+                height:100%;
             }
         </style>
-
-        <neon-animated-pages attr-for-selected="name" selected="list">
-            <paper-scroll-header-panel class="flex" name="list">
-                <paper-toolbar>
-                    <paper-icon-button icon="menu" paper-drawer-toggle on-tap="toggleDrawer"></paper-icon-button>
-                    <span class="title">D&D 5E Spell Cards</span>
-                    <paper-icon-button icon="filter-list" on-tap="toggleFilters"></paper-icon-button>
-                </paper-toolbar>
-                <template is="dom-repeat" items="[[spells]]">
-                    <spell-details data="[[item]]" name="[[item.name]]"></spell-details>
-                </template>
-            </paper-scroll-header-panel>
+        <neon-animated-pages selected="0">
+            <list-view spells="[[spells]]"></list-view>
+            <details-view></details-view>
         </neon-animated-pages>
-
     </template>
 
     <script>
         Polymer({
             is: 'spell-list',
             properties: {
-                playerClasses: {
-                    type: Array
-                },
-                spellLevels: {
-                    type: Array
-                },
-                spellSchools: {
-                    type: Array
-                },
-                spellName: {
-                    type: String,
-                    notify: true,
-                    observer: "onSpellNameChanged"
-                },
                 spells: {
                     type: Array,
-                    notify: true,
-                    value: function () {
-                        return [];
-                    },
-                    observer: "applyFilters"
-                },
-                filteredSpells: {
-                    type: Array
+                    notify: true
                 }
             },
-
-            observers: [
-                "applyFilters(spellSchools.*)",
-                "applyFilters(spellLevels.*)",
-                "applyFilters(playerClasses.*)"
-            ],
             behaviors: [
                 Polymer.IronResizableBehavior
             ],
-            listeners: {
-                'iron-resize': '_onIronResize'
-            },
             onSpellNameChanged: function () {
                 if (this.spellName.length > 0) {
                     this.$.clearSpellNameButton.hidden = false;
@@ -150,16 +85,6 @@
             },
             ready: function () {
             },
-            applyFilters: function () {
-                var newFilteredSpells = [];
-                for (var i = 0; i < this.spells.length; i++) {
-                    var s = this.spells[i];
-                    if (this.filterSpell(s)) {
-                        newFilteredSpells.push(s);
-                    }
-                }
-                this.set('filteredSpells', newFilteredSpells);
-            },
             filterSpell: function (spell) {
                 var classMatches = true;
                 if (this.playerClasses !== undefined && this.playerClasses.length > 0) {
@@ -204,13 +129,8 @@
             toggleDrawer: function () {
                 this.fire('drawer-toggle', {});
             },
-            toggleFilters: function () {
-                this.querySelector('iron-collapse').toggle();
-            },
-            _onIronResize: function () {
-            },
             spellSelected: function (e) {
-                console.log(e.target.name);
+                console.log(e.target.data);
             }
         });
     </script>

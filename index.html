@@ -10,9 +10,18 @@
     <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase-database.js"></script>
+    <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
     <link rel="import" href="src/sapphire-reserve/sapphire-reserve.html">
 </head>
-<body>
+<style is="custom-style">
+    body {
+        @apply(--layout-fullbleed);
+    }
+    sapphire-reserve{
+        @apply(--layout-fit);
+    }
+</style>
+<body class="fullbleed layout flex">
 <sapphire-reserve></sapphire-reserve>
 </body>
 </html>
