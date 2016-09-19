@@ -14,6 +14,7 @@
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="/bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="/bower_components/iron-collapse/iron-collapse.html">
+<link rel="import" href="/bower_components/paper-scroll-header-panel/paper-scroll-header-panel.html">
 <link rel="import" href="../spell-details/spell-details.html">
 <dom-module id="spell-list">
     <template>
@@ -40,77 +41,23 @@
                 margin-left: 5px;
                 flex-grow: 1;
             }
-            paper-item{
+
+            paper-item {
                 border-bottom: 1px solid var(--divider-color);
             }
         </style>
 
         <neon-animated-pages attr-for-selected="name" selected="list">
-            <div name="list">
+            <paper-scroll-header-panel class="flex" name="list">
                 <paper-toolbar>
                     <paper-icon-button icon="menu" paper-drawer-toggle on-tap="toggleDrawer"></paper-icon-button>
                     <span class="title">D&D 5E Spell Cards</span>
                     <paper-icon-button icon="filter-list" on-tap="toggleFilters"></paper-icon-button>
                 </paper-toolbar>
-                <div>
-                    <iron-collapse>
-                        <div>
-                            <div class="layout horizontal wrap">
-                                <paper-dropdown-menu label="Class" no-label-float="true">
-                                    <paper-listbox multi attr-for-selected="name" class="dropdown-content"
-                                                   selected-values="{{playerClasses}}">
-                                        <paper-item name="Bard">Bard</paper-item>
-                                        <paper-item name="Cleric">Cleric</paper-item>
-                                        <paper-item name="Druid">Druid</paper-item>
-                                        <paper-item name="Paladin">Paladin</paper-item>
-                                        <paper-item name="Ranger">Ranger</paper-item>
-                                        <paper-item name="Sorcerer">Sorcerer</paper-item>
-                                        <paper-item name="Warlock">Warlock</paper-item>
-                                        <paper-item name="Wizard">Wizard</paper-item>
-                                    </paper-listbox>
-                                </paper-dropdown-menu>
-                                <paper-dropdown-menu label="School" no-label-float="true">
-                                    <paper-listbox multi class="dropdown-content" attr-for-selected="name"
-                                                   selected-values="{{spellSchools}}">
-                                        <paper-item name="Abjuration">Abjuration</paper-item>
-                                        <paper-item name="Conjuration">Conjuration</paper-item>
-                                        <paper-item name="Divination">Divination</paper-item>
-                                        <paper-item name="Enchantment">Enchantment</paper-item>
-                                        <paper-item name="Evocation">Evocation</paper-item>
-                                        <paper-item name="Illusion">Illusion</paper-item>
-                                        <paper-item name="Necromancy">Necromancy</paper-item>
-                                        <paper-item name="Transmutation">Transmutation</paper-item>
-                                    </paper-listbox>
-                                </paper-dropdown-menu>
-                                <paper-dropdown-menu label="Level" no-label-float="true">
-                                    <paper-listbox multi class="dropdown-content" attr-for-selected="level"
-                                                   selected-values="{{spellLevels}}">
-                                        <paper-item level="0">Cantrip</paper-item>
-                                        <paper-item level="1">1st-level</paper-item>
-                                        <paper-item level="2">2nd-level</paper-item>
-                                        <paper-item level="3">3rd-level</paper-item>
-                                        <paper-item level="4">4th-level</paper-item>
-                                        <paper-item level="5">5th-level</paper-item>
-                                        <paper-item level="6">6th-level</paper-item>
-                                        <paper-item level="7">7th-level</paper-item>
-                                        <paper-item level="8">8th-level</paper-item>
-                                        <paper-item level="9">9th-level</paper-item>
-                                    </paper-listbox>
-                                </paper-dropdown-menu>
-                                <paper-input value="{{spellName}}" label="Name" id="spellName" no-label-float="true">
-                                        <paper-icon-button suffix icon="clear" id="clearSpellNameButton"on-tap="clearSpellName"></paper-icon-button>
-                                </paper-input>
-                            </div>
-                        </div>
-                    </iron-collapse>
-                </div>
                 <template is="dom-repeat" items="[[spells]]">
-                    <paper-item on-tap="spellSelected" name="[[item.name]]">[[item.name]]</paper-item>
+                    <spell-details data="[[item]]" name="[[item.name]]"></spell-details>
                 </template>
-            </div>
-            <template is="dom-repeat" items="[[spells]]">
-                <spell-details data="[[item]]" name="[[item.name]]"></spell-details>
-            </template>
+            </paper-scroll-header-panel>
         </neon-animated-pages>
 
     </template>
@@ -136,7 +83,9 @@
                 spells: {
                     type: Array,
                     notify: true,
-                    value:function(){return [];},
+                    value: function () {
+                        return [];
+                    },
                     observer: "applyFilters"
                 },
                 filteredSpells: {
@@ -155,14 +104,11 @@
             listeners: {
                 'iron-resize': '_onIronResize'
             },
-            onSpellNameChanged:function()
-            {
-                if(this.spellName.length > 0)
-                {
+            onSpellNameChanged: function () {
+                if (this.spellName.length > 0) {
                     this.$.clearSpellNameButton.hidden = false;
                 }
-                else
-                {
+                else {
                     this.$.clearSpellNameButton.hidden = true;
                 }
                 this.applyFilters();
@@ -263,8 +209,7 @@
             },
             _onIronResize: function () {
             },
-            spellSelected: function(e)
-            {
+            spellSelected: function (e) {
                 console.log(e.target.name);
             }
         });
