@@ -51,7 +51,10 @@
                 <p><b>Range:</b> [[selected.range]]</p>
                 <p><b>Duration:</b> [[selected.duration]]</p>
                 <br/>
-                <p inner-h-t-m-l="[[selected.desc]]"></p>
+                <div inner-h-t-m-l="[[selected.desc]]"></div>
+                <template is="dom-if" if="[[selected.higher_level]]">
+                    <div inner-h-t-m-l="[[selected.higher_level]]"></div>
+                </template>
             </paper-dialog-scrollable>
         </paper-dialog>
         <paper-dialog id="filters" with-backdrop>
