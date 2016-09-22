@@ -45,9 +45,9 @@
         <paper-dialog id="details" with-backdrop>
             <h2>[[selected.name]]</h2>
             <paper-dialog-scrollable>
-                <p>[[spellLevelSchoolDescription(selected)]]</p>
+                <p>[[_spellLevelSchoolDescription(selected)]]</p>
                 <p><b>Casting Time:</b> [[selected.casting_time]]</p>
-                <p><b>Materials:</b> [[components(selected)]]</p>
+                <p><b>Materials:</b> [[_components(selected)]]</p>
                 <p><b>Range:</b> [[selected.range]]</p>
                 <p><b>Duration:</b> [[selected.duration]]</p>
                 <br/>
@@ -218,14 +218,14 @@
             behaviors: [
                 Polymer.IronResizableBehavior
             ],
-            components: function (spell) {
+            _components: function (spell) {
                 var cmpts = spell.components.join(', ');
                 if (spell.material !== undefined) {
                     cmpts += ' (' + spell.material + ')';
                 }
                 return cmpts;
             },
-            spellLevelSchoolDescription: function (spell) {
+            _spellLevelSchoolDescription: function (spell) {
                 var desc = "";
                 if (spell.level == 0) {
                     desc = spell.school + " Cantrip";
