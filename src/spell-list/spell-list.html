@@ -49,7 +49,7 @@
                 <p><b>Casting Time:</b> [[selected.casting_time]]</p>
                 <p><b>Materials:</b> [[_components(selected)]]</p>
                 <p><b>Range:</b> [[selected.range]]</p>
-                <p><b>Duration:</b> [[selected.duration]]</p>
+                <p><b>Duration:</b> [[_duration(selected)]]</p>
                 <br/>
                 <div inner-h-t-m-l="[[selected.desc]]"></div>
                 <template is="dom-if" if="[[selected.higher_level]]">
@@ -218,6 +218,10 @@
             behaviors: [
                 Polymer.IronResizableBehavior
             ],
+            _duration:function(spell)
+            {
+                return spell.duration + (spell.concentration ? " (Concentration)" :"");
+            },
             _components: function (spell) {
                 var cmpts = spell.components.join(', ');
                 if (spell.material !== undefined) {
