@@ -10,6 +10,7 @@
 <link rel="import" href="/bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="/bower_components/paper-input/paper-input.html">
+<link rel="import" href="/src/spell-details/spell-details.html">
 <dom-module id="spell-list">
     <template>
         <style is="custom-style" include="iron-flex iron-flex-alignment"></style>
@@ -24,10 +25,6 @@
 
             .list-item {
                 border-bottom: 1px solid var(--divider-color);
-            }
-
-            p {
-                margin: 0;
             }
         </style>
         <paper-scroll-header-panel>
@@ -45,16 +42,7 @@
         <paper-dialog id="details" with-backdrop>
             <h2>[[selected.name]]</h2>
             <paper-dialog-scrollable>
-                <p>[[_spellLevelSchoolDescription(selected)]]</p>
-                <p><b>Casting Time:</b> [[selected.casting_time]]</p>
-                <p><b>Materials:</b> [[_components(selected)]]</p>
-                <p><b>Range:</b> [[selected.range]]</p>
-                <p><b>Duration:</b> [[_duration(selected)]]</p>
-                <br/>
-                <div inner-h-t-m-l="[[selected.desc]]"></div>
-                <template is="dom-if" if="[[selected.higher_level]]">
-                    <div inner-h-t-m-l="[[selected.higher_level]]"></div>
-                </template>
+                <spell-details item="[[selected]]"></spell-details>
             </paper-dialog-scrollable>
         </paper-dialog>
         <paper-dialog id="filters" with-backdrop>
@@ -218,40 +206,7 @@
             behaviors: [
                 Polymer.IronResizableBehavior
             ],
-            _duration:function(spell)
-            {
-                return spell.duration + (spell.concentration ? " (Concentration)" :"");
-            },
-            _components: function (spell) {
-                var cmpts = spell.components.join(', ');
-                if (spell.material !== undefined) {
-                    cmpts += ' (' + spell.material + ')';
-                }
-                return cmpts;
-            },
-            _spellLevelSchoolDescription: function (spell) {
-                var desc = "";
-                if (spell.level == 0) {
-                    desc = spell.school + " Cantrip";
-                }
-                else if (spell.level == 1) {
-                    desc = "1st-level " + spell.school;
-                }
-                else if (spell.level == 2) {
-                    desc = "2nd-level " + spell.school;
-                }
-                else if (spell.level == 3) {
-                    desc = "3rd-level " + spell.school;
-                }
-                else {
-                    desc = spell.level + "th-level " + spell.school;
-                }
 
-                if (spell.ritual) {
-                    desc += " (ritual)";
-                }
-                return desc;
-            },
             toggleDrawer: function () {
                 this.fire('drawer-toggle', {});
             },
@@ -377,6 +332,9 @@
             },
             _onSpellsChanged:function(){
                 this.applyFilters();
+            },
+            ready:function(){
+                this.querySelector('spell-details').showName = false;
             }
         });
     </script>

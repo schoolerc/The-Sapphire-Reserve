@@ -1,0 +1,75 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<dom-module is="spell-details">
+    <template>
+        <style>
+            p{
+                margin-bottom:0;
+            }
+        </style>
+
+        <template is="dom-if" if="[[showName]]">
+            <h3>[[item.name]]</h3>
+        </template>
+        <p>[[_spellLevelSchoolDescription(item)]]</p>
+        <p><b>Casting Time:</b> [[item.casting_time]]</p>
+        <p><b>Materials:</b> [[_components(item)]]</p>
+        <p><b>Range:</b> [[item.range]]</p>
+        <p><b>Duration:</b> [[_duration(item)]]</p>
+        <br/>
+        <div inner-h-t-m-l="[[item.desc]]"></div>
+        <template is="dom-if" if="[[item.higher_level]]">
+            <div inner-h-t-m-l="[[item.higher_level]]"></div>
+        </template>
+
+    </template>
+    <script>
+        Polymer({
+            is:'spell-details',
+            properties:{
+                item:{
+                    type: Object,
+                    notify:true
+                },
+                showName:{
+                    type: Boolean,
+                    value: true,
+                    notify:true
+                }
+            },
+            _duration:function(spell)
+            {
+                return spell.duration + (spell.concentration ? " (Concentration)" :"");
+            },
+            _components: function (spell) {
+                var cmpts = spell.components.join(', ');
+                if (spell.material !== undefined) {
+                    cmpts += ' (' + spell.material + ')';
+                }
+                return cmpts;
+            },
+            _spellLevelSchoolDescription: function (spell) {
+                var desc = "";
+                if (spell.level == 0) {
+                    desc = spell.school + " Cantrip";
+                }
+                else if (spell.level == 1) {
+                    desc = "1st-level " + spell.school;
+                }
+                else if (spell.level == 2) {
+                    desc = "2nd-level " + spell.school;
+                }
+                else if (spell.level == 3) {
+                    desc = "3rd-level " + spell.school;
+                }
+                else {
+                    desc = spell.level + "th-level " + spell.school;
+                }
+
+                if (spell.ritual) {
+                    desc += " (ritual)";
+                }
+                return desc;
+            },
+        })
+    </script>
+</dom-module>
