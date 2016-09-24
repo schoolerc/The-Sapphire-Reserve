@@ -38,7 +38,7 @@
             },
             _duration:function(spell)
             {
-                return spell.duration + (spell.concentration ? " (Concentration)" :"");
+                return spell.duration + (spell.concentration == "yes" ? " (Concentration)" :"");
             },
             _components: function (spell) {
                 var cmpts = spell.components.join(', ');
