@@ -1,0 +1,84 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="/bower_components/iron-iconset/iron-iconset.html">
+<link rel="import" href="/bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="/bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="/bower_components/paper-dialog-scrollable/paper-dialog-scrollable">
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
+<link rel="import" href="../monster-details/monster-details.html">
+<dom-module id="monster-list">
+    <template>
+        <style>
+            :host {
+                display: flex;
+                flex-direction: column;
+            }
+
+            iron-list {
+                flex: 1 1 auto;
+            }
+            monster-card{
+                padding-top:10px;
+                padding-right:10px;
+            }
+        </style>
+        <paper-toolbar>
+            <paper-icon-button icon="menu" paper-drawer-toggle on-tap="toggleDrawer"></paper-icon-button>
+            <span class="title">Monster Cards</span>
+            <paper-icon-button icon="filter-list" on-tap="showFilter"></paper-icon-button>
+        </paper-toolbar>
+        <paper-dialog id="filters">
+
+        </paper-dialog>
+        <template is="dom-repeat" items="[[filteredMonsters]]">
+            <paper-item on-tap="monsterSelected">[[item.name]]</paper-item>
+        </template>
+
+        <paper-dialog id="details">
+            <h2>[[selected.name]]</h2>
+            <paper-dialog-scrollable>
+                <monster-details data="[[item]]"></monster-details>
+            </paper-dialog-scrollable>
+            <div class="buttons">
+                <paper-button autofocus dialog-canceled>Close</paper-button>
+            </div>
+        </paper-dialog>
+    </template>
+    <script>
+        Polymer({
+            is:"monster-list",
+            properties:{
+                monsters:{
+                    type:Array,
+                },
+                filteredMonsters:{
+                    type:Array,
+                },
+                filters:{
+                    type:Object,
+                    value:function(){return{};}
+                }
+            },
+            toggleDrawer:function(){
+                this.fire('drawer-toggle', {});
+            },
+            showFilter:function(){
+            },
+            ready:function(){
+                this.filteredMonsters = this.monsters;
+            },
+            onMonstersChanged:function(){
+                this.applyFilters();
+            },
+            applyFilters:function()
+            {
+
+            },
+            clearFilters:function()
+            {
+                this.filters = {};
+                this.applyFilters();
+            }
+        })
+    </script>
+</dom-module>
