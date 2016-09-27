@@ -10,6 +10,9 @@
 <link rel="import" href="/bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="/bower_components/paper-input/paper-input.html">
+<link rel="import" href="/bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="/src/spell-details/spell-details.html">
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
 <dom-module id="spell-list">
     <template>
         <style is="custom-style" include="iron-flex iron-flex-alignment"></style>
@@ -24,10 +27,6 @@
 
             .list-item {
                 border-bottom: 1px solid var(--divider-color);
-            }
-
-            p {
-                margin: 0;
             }
         </style>
         <paper-scroll-header-panel>
@@ -45,16 +44,7 @@
         <paper-dialog id="details" with-backdrop>
             <h2>[[selected.name]]</h2>
             <paper-dialog-scrollable>
-                <p>[[_spellLevelSchoolDescription(selected)]]</p>
-                <p><b>Casting Time:</b> [[selected.casting_time]]</p>
-                <p><b>Materials:</b> [[_components(selected)]]</p>
-                <p><b>Range:</b> [[selected.range]]</p>
-                <p><b>Duration:</b> [[_duration(selected)]]</p>
-                <br/>
-                <div inner-h-t-m-l="[[selected.desc]]"></div>
-                <template is="dom-if" if="[[selected.higher_level]]">
-                    <div inner-h-t-m-l="[[selected.higher_level]]"></div>
-                </template>
+                <spell-details item="[[selected]]"></spell-details>
             </paper-dialog-scrollable>
         </paper-dialog>
         <paper-dialog id="filters" with-backdrop>
@@ -149,6 +139,11 @@
                             <paper-checkbox checked="{{filters.levels.9}}">9th-level</paper-checkbox>
                         </paper-item>
                     </div>
+                    <div class="layout vertical">
+                        <paper-item>
+                            <paper-toggle-button active="{{filters.ritual_only}}">Rituals Only</paper-toggle-button>
+                        </paper-item>
+                    </div>
                 </div>
             </paper-dialog-scrollable>
             <div class="buttons">
@@ -165,11 +160,11 @@
                 spells: {
                     type: Array,
                     notify: true,
-                    observer:'_onSpellsChanged'
+                    observer: '_onSpellsChanged'
                 },
-                filteredSpells:{
-                    type:Array,
-                    notify:true
+                filteredSpells: {
+                    type: Array,
+                    notify: true
                 },
                 selected: {
                     type: Object
@@ -210,7 +205,8 @@
                                 necromancy: false,
                                 transmutation: false
                             },
-                            name:""
+                            name: "",
+                            ritual_only: false
                         }
                     }
                 }
@@ -218,40 +214,7 @@
             behaviors: [
                 Polymer.IronResizableBehavior
             ],
-            _duration:function(spell)
-            {
-                return spell.duration + (spell.concentration ? " (Concentration)" :"");
-            },
-            _components: function (spell) {
-                var cmpts = spell.components.join(', ');
-                if (spell.material !== undefined) {
-                    cmpts += ' (' + spell.material + ')';
-                }
-                return cmpts;
-            },
-            _spellLevelSchoolDescription: function (spell) {
-                var desc = "";
-                if (spell.level == 0) {
-                    desc = spell.school + " Cantrip";
-                }
-                else if (spell.level == 1) {
-                    desc = "1st-level " + spell.school;
-                }
-                else if (spell.level == 2) {
-                    desc = "2nd-level " + spell.school;
-                }
-                else if (spell.level == 3) {
-                    desc = "3rd-level " + spell.school;
-                }
-                else {
-                    desc = spell.level + "th-level " + spell.school;
-                }
 
-                if (spell.ritual) {
-                    desc += " (ritual)";
-                }
-                return desc;
-            },
             toggleDrawer: function () {
                 this.fire('drawer-toggle', {});
             },
@@ -269,72 +232,66 @@
                 var nameMatters = false, classMatters = false, levelMatters = false, schoolMatters = false;
 
                 nameMatters = this.filters.name !== "";
-                for(var c in this.filters.classes)
-                {
+                for (var c in this.filters.classes) {
                     classMatters = classMatters || this.filters.classes[c];
                 }
 
-                for(var l of this.filters.levels)
-                {
+                for (var l of this.filters.levels) {
                     levelMatters = levelMatters || l;
                 }
 
-                for(var s in this.filters.schools)
-                {
+                for (var s in this.filters.schools) {
                     schoolMatters = schoolMatters || this.filters.schools[s];
                 }
 
                 var updatedFilteredSpells = [];
-                for(var spell of this.spells)
-                {
-                    if(nameMatters)
-                    {
+                for (var spell of this.spells) {
+                    if (nameMatters) {
                         var lcName = spell.name.toLowerCase();
                         var lcTarget = this.filters.name.toLowerCase();
-                        if(lcName.indexOf(lcTarget) == -1)
-                        {
+                        if (lcName.indexOf(lcTarget) == -1) {
                             //Search string not in spell name. NEXT
                             continue;
                         }
                     }
 
-                    if(classMatters)
-                    {
+                    if (classMatters) {
                         var classMatches = false;
-                        for(var c of spell.class)
-                        {
-                            if(this.filters.classes[c.toLowerCase()])
-                            {
+                        for (var c of spell.class) {
+                            if (this.filters.classes[c.toLowerCase()]) {
                                 classMatches = true;
                             }
                         }
-                        if(!classMatches)
-                        {
+                        if (!classMatches) {
                             //Not castable by any of the requested classes. NEXT
                             continue;
                         }
                     }
 
-                    if(schoolMatters)
-                    {
-                        if(!this.filters.schools[spell.school.toLowerCase()])
-                        {
+                    if (schoolMatters) {
+                        if (!this.filters.schools[spell.school.toLowerCase()]) {
                             //Not part of the schools we care about. NEXT
                             continue;
                         }
                     }
 
-                    if(levelMatters)
-                    {
-                        if(!this.filters.levels[spell.level])
-                        {
+                    if (levelMatters) {
+                        if (!this.filters.levels[spell.level]) {
                             //Not of a level we care about. NEXT
+                            continue;
+                        }
+                    }
+
+                    if (this.filters.ritual_only) {
+                        console.log(spell.ritual);
+                        if (!spell.ritual) {
                             continue;
                         }
                     }
 
                     updatedFilteredSpells.push(spell);
                 }
+                this.filteredSpells = [];
                 this.filteredSpells = updatedFilteredSpells;
             },
             clearFilters: function () {
@@ -371,12 +328,16 @@
                         necromancy: false,
                         transmutation: false
                     },
-                    name:""
+                    name: "",
+                    ritual_only:false
                 };
                 this.applyFilters();
             },
-            _onSpellsChanged:function(){
+            _onSpellsChanged: function () {
                 this.applyFilters();
+            },
+            ready: function () {
+                this.querySelector('spell-details').showName = false;
             }
         });
     </script>
