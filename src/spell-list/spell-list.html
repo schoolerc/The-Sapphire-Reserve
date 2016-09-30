@@ -1,0 +1,112 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/paper-scroll-header-panel/paper-scroll-header-panel.html">
+<link rel="import" href="/bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="/bower_components/iron-iconset/iron-iconset.html">
+<link rel="import" href="/bower_components/paper-item/paper-item.html">
+<link rel="import" href="/bower_components/paper-item/paper-item-body.html">
+<link rel="import" href="/bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="/bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+<dom-module id="spell-list">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+            paper-scroll-header-panel{
+                height:100%;
+            }
+            paper-item{
+                border-bottom:1px solid var(--divider-color);
+            }
+
+            p{
+                margin:0;
+            }
+        </style>
+        <paper-scroll-header-panel>
+            <paper-toolbar>
+                <paper-icon-button icon="menu" paper-drawer-toggle on-tap="toggleDrawer"></paper-icon-button>
+                <span class="title">D&D 5E Spell Cards</span>
+                <paper-icon-button icon="filter-list" on-tap="toggleFilters"></paper-icon-button>
+            </paper-toolbar>
+            <template is="dom-repeat" items="[[spells]]">
+                <paper-item on-tap="showPopup">
+                    <paper-item-body>[[item.name]]</paper-item-body>
+                </paper-item>
+            </template>
+        </paper-scroll-header-panel>
+        <paper-dialog id="details" with-backdrop>
+            <h2>[[selected.name]]</h2>
+            <paper-dialog-scrollable>
+                <p>[[spellLevelSchoolDescription(selected)]]</p>
+                <p><b>Casting Time:</b> [[selected.casting_time]]</p>
+                <p><b>Materials:</b> [[components(selected)]]</p>
+                <p><b>Range:</b> [[selected.range]]</p>
+                <p><b>Duration:</b> [[selected.duration]]</p>
+                <br/>
+                <p inner-h-t-m-l="[[selected.desc]]"></p>
+            </paper-dialog-scrollable>
+        </paper-dialog>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'spell-list',
+            properties: {
+                spells: {
+                    type: Array,
+                    notify: true
+                },
+                selected:{
+                    type:Object
+                }
+            },
+            behaviors: [
+                Polymer.IronResizableBehavior
+            ],
+            components: function (spell) {
+                var cmpts = spell.components.join(', ');
+                if (spell.material !== undefined) {
+                    cmpts += ' (' + spell.material + ')';
+                }
+                return cmpts;
+            },
+            spellLevelSchoolDescription: function (spell) {
+                var desc = "";
+                if (spell.level == 0) {
+                    desc = spell.school + " Cantrip";
+                }
+                else if (spell.level == 1) {
+                    desc = "1st-level " + spell.school;
+                }
+                else if (spell.level == 2) {
+                    desc = "2nd-level " + spell.school;
+                }
+                else if (spell.level == 3) {
+                    desc = "3rd-level " + spell.school;
+                }
+                else {
+                    desc = spell.level + "th-level " + spell.school;
+                }
+
+                if (spell.ritual) {
+                    desc += " (ritual)";
+                }
+                return desc;
+            },
+            toggleDrawer: function () {
+                this.fire('drawer-toggle', {});
+            },
+            showPopup:function(e)
+            {
+                this.selected = this.spells[e.model.index];
+                this.$.details.open();
+            },
+            closePopup:function(e)
+            {
+                this.$.details.close();
+            }
+        });
+    </script>
+</dom-module>
