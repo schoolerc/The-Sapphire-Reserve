@@ -9,7 +9,7 @@
 <link rel="import" href="/bower_components/neon-animation/animations/slide-up-animation.html">
 <link rel="import" href="/bower_components/neon-animation/animations/fade-in-animation.html">
 <link rel="import" href="/bower_components/neon-animation/animations/fade-out-animation.html">
-<link rel="import" href="../monster-cards/monster-cards.html">
+<link rel="import" href="../monster-list/monster-list.html">
 <link rel="import" href="../combat-tracker/combat-tracker.html">
 <link rel="import" href="../home-page/home-page.html">
 <link rel="import" href="/bower_components/app-route/app-location.html">
@@ -28,10 +28,6 @@
                 font-family: Roboto, Arial, SansSerif;
             }
 
-            body {
-
-            }
-
             #content {
                 height: 100vh;
             }
@@ -46,7 +42,6 @@
 
                 };
             }
-
             paper-item {
                 --paper-item-selected: {
                     background-color: var(--paper-grey-300);
@@ -70,8 +65,8 @@
                 </paper-toolbar>
                 <paper-listbox selected="{{data.item}}" attr-for-selected="key">
                     <paper-item key="">Home</paper-item>
-                    <paper-item key="spell-cards">Spell Cards</paper-item>
-                    <paper-item key="monster-cards">Monster Cards</paper-item>
+                    <paper-item key="spell-list">Spell Cards</paper-item>
+                    <paper-item key="monster-list">Monster Cards</paper-item>
                     <paper-item key="combat-tracker">Combat Tracker</paper-item>
                 </paper-listbox>
             </paper-header-panel>
@@ -79,8 +74,8 @@
                 <neon-animated-pages class="fullbleed layout flex" id="content" selected="{{data.item}}" entry-animation="slide-from-right-animation"
                                      exit-animation="slide-left-animation" attr-for-selected="key">
                     <home-page key=""></home-page>
-                    <spell-list id="spellCards" key="spell-cards"></spell-list>
-                    <monster-cards id="monsterCards" key="monster-cards"></monster-cards>
+                    <spell-list id="spellCards" key="spell-list"></spell-list>
+                    <monster-list id="monsterCards" key="monster-list"></monster-list>
                     <combat-tracker key="combat-tracker"></combat-tracker>
                 </neon-animated-pages>
             </paper-header-panel>

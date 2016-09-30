@@ -7,31 +7,36 @@
 <link rel="import" href="/bower_components/paper-item/paper-item-body.html">
 <link rel="import" href="/bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="/bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+<link rel="import" href="/bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="/bower_components/paper-input/paper-input.html">
+<link rel="import" href="/bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="/src/spell-details/spell-details.html">
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
 <dom-module id="spell-list">
     <template>
+        <style is="custom-style" include="iron-flex iron-flex-alignment"></style>
         <style>
             :host {
                 display: block;
             }
-            paper-scroll-header-panel{
-                height:100%;
-            }
-            paper-item{
-                border-bottom:1px solid var(--divider-color);
+
+            paper-scroll-header-panel {
+                height: 100%;
             }
 
-            p{
-                margin:0;
+            .list-item {
+                border-bottom: 1px solid var(--divider-color);
             }
         </style>
         <paper-scroll-header-panel>
             <paper-toolbar>
-                <paper-icon-button icon="menu" paper-drawer-toggle on-tap="toggleDrawer"></paper-icon-button>
+                <paper-icon-button icon="menu" on-tap="toggleDrawer"></paper-icon-button>
                 <span class="title">D&D 5E Spell Cards</span>
-                <paper-icon-button icon="filter-list" on-tap="toggleFilters"></paper-icon-button>
+                <paper-icon-button icon="filter-list" on-tap="showFilters"></paper-icon-button>
             </paper-toolbar>
-            <template is="dom-repeat" items="[[spells]]">
-                <paper-item on-tap="showPopup">
+            <template is="dom-repeat" items="[[filteredSpells]]">
+                <paper-item class="list-item" on-tap="showPopup">
                     <paper-item-body>[[item.name]]</paper-item-body>
                 </paper-item>
             </template>
@@ -39,14 +44,115 @@
         <paper-dialog id="details" with-backdrop>
             <h2>[[selected.name]]</h2>
             <paper-dialog-scrollable>
-                <p>[[spellLevelSchoolDescription(selected)]]</p>
-                <p><b>Casting Time:</b> [[selected.casting_time]]</p>
-                <p><b>Materials:</b> [[components(selected)]]</p>
-                <p><b>Range:</b> [[selected.range]]</p>
-                <p><b>Duration:</b> [[selected.duration]]</p>
-                <br/>
-                <p inner-h-t-m-l="[[selected.desc]]"></p>
+                <spell-details item="[[selected]]"></spell-details>
             </paper-dialog-scrollable>
+            <div class="buttons">
+                <paper-button dialog-dismiss autofocus>Close</paper-button>
+            </div>
+        </paper-dialog>
+        <paper-dialog id="filters" with-backdrop>
+            <h2>Filters</h2>
+            <paper-dialog-scrollable>
+                <paper-input label="Name" value="{{filters.name}}"></paper-input>
+                <div class="layout horizontal wrap">
+                    <div class="layout vertical">
+                        <h3>Classes</h3>
+                        <paper-item>
+                            <paper-checkbox checked="{{filters.classes.bard}}">Bard</paper-checkbox>
+                        </paper-item>
+                        <paper-item>
+                            <paper-checkbox checked="{{filters.classes.cleric}}">Cleric</paper-checkbox>
+                        </paper-item>
+                        <paper-item>
+                            <paper-checkbox checked="{{filters.classes.druid}}">Druid</paper-checkbox>
+                        </paper-item>
+                        <paper-item>
+                            <paper-checkbox checked="{{filters.classes.paladin}}">Paladin</paper-checkbox>
+                        </paper-item>
+                        <paper-item>
+                            <paper-checkbox checked="{{filters.classes.ranger}}">Ranger</paper-checkbox>
+                        </paper-item>
+                        <paper-item>
+                            <paper-checkbox checked="{{filters.classes.sorcerer}}">Sorcerer</paper-checkbox>
+                        </paper-item>
+                        <paper-item>
+                            <paper-checkbox checked="{{filters.classes.warlock}}">Warlock</paper-checkbox>
+                        </paper-item>
+                        <paper-item>
+                            <paper-checkbox checked="{{filters.classes.wizard}}">Wizard</paper-checkbox>
+                        </paper-item>
+                    </div>
+                    <div class="layout vertical">
+                        <h3>Spell School</h3>
+                        <paper-item>
+                            <paper-checkbox checked="{{filters.schools.abjuration}}">Abjuration</paper-checkbox>
+                        </paper-item>
+                        <paper-item>
+                            <paper-checkbox checked="{{filters.schools.conjuration}}">Conjuration</paper-checkbox>
+                        </paper-item>
+                        <paper-item>
+                            <paper-checkbox checked="{{filters.schools.divination}}">Divination</paper-checkbox>
+                        </paper-item>
+                        <paper-item>
+                            <paper-checkbox checked="{{filters.schools.enchantment}}">Enchantment</paper-checkbox>
+                        </paper-item>
+                        <paper-item>
+                            <paper-checkbox checked="{{filters.schools.evocation}}">Evocation</paper-checkbox>
+                        </paper-item>
+                        <paper-item>
+                            <paper-checkbox checked="{{filters.schools.illusion}}">Illusion</paper-checkbox>
+                        </paper-item>
+                        <paper-item>
+                            <paper-checkbox checked="{{filters.schools.necromancy}}">Necromancy</paper-checkbox>
+                        </paper-item>
+                        <paper-item>
+                            <paper-checkbox checked="{{filters.schools.transmutation}}">Transmutation</paper-checkbox>
+                        </paper-item>
+                    </div>
+                    <div class="layout vertical">
+                        <h3>Spell Level</h3>
+                        <paper-item>
+                            <paper-checkbox checked="{{filters.levels.0}}">Cantrip</paper-checkbox>
+                        </paper-item>
+                        <paper-item>
+                            <paper-checkbox checked="{{filters.levels.1}}">1st-level</paper-checkbox>
+                        </paper-item>
+                        <paper-item>
+                            <paper-checkbox checked="{{filters.levels.2}}">2nd-level</paper-checkbox>
+                        </paper-item>
+                        <paper-item>
+                            <paper-checkbox checked="{{filters.levels.3}}">3rd-level</paper-checkbox>
+                        </paper-item>
+                        <paper-item>
+                            <paper-checkbox checked="{{filters.levels.4}}">4th-level</paper-checkbox>
+                        </paper-item>
+                        <paper-item>
+                            <paper-checkbox checked="{{filters.levels.5}}">5th-level</paper-checkbox>
+                        </paper-item>
+                        <paper-item>
+                            <paper-checkbox checked="{{filters.levels.6}}">6th-level</paper-checkbox>
+                        </paper-item>
+                        <paper-item>
+                            <paper-checkbox checked="{{filters.levels.7}}">7th-level</paper-checkbox>
+                        </paper-item>
+                        <paper-item>
+                            <paper-checkbox checked="{{filters.levels.8}}">8th-level</paper-checkbox>
+                        </paper-item>
+                        <paper-item>
+                            <paper-checkbox checked="{{filters.levels.9}}">9th-level</paper-checkbox>
+                        </paper-item>
+                    </div>
+                    <div class="layout vertical">
+                        <paper-item>
+                            <paper-toggle-button active="{{filters.ritual_only}}">Rituals Only</paper-toggle-button>
+                        </paper-item>
+                    </div>
+                </div>
+            </paper-dialog-scrollable>
+            <div class="buttons">
+                <paper-button dialog-confirm on-tap="clearFilters">Clear</paper-button>
+                <paper-button dialog-confirm autofocus on-tap="applyFilters">Apply</paper-button>
+            </div>
         </paper-dialog>
     </template>
 
@@ -56,56 +162,185 @@
             properties: {
                 spells: {
                     type: Array,
+                    notify: true,
+                    observer: '_onSpellsChanged'
+                },
+                filteredSpells: {
+                    type: Array,
                     notify: true
                 },
-                selected:{
-                    type:Object
+                selected: {
+                    type: Object
+                },
+                filters: {
+                    type: Object,
+                    value: function () {
+                        return {
+                            levels: [
+                                false,
+                                false,
+                                false,
+                                false,
+                                false,
+                                false,
+                                false,
+                                false,
+                                false,
+                                false
+                            ],
+                            classes: {
+                                bard: false,
+                                cleric: false,
+                                druid: false,
+                                paladin: false,
+                                ranger: false,
+                                sorcerer: false,
+                                warlock: false,
+                                wizard: false
+                            },
+                            schools: {
+                                abjuration: false,
+                                conjuration: false,
+                                diviniation: false,
+                                enchantment: false,
+                                evocation: false,
+                                illusion: false,
+                                necromancy: false,
+                                transmutation: false
+                            },
+                            name: "",
+                            ritual_only: false
+                        }
+                    }
                 }
             },
             behaviors: [
                 Polymer.IronResizableBehavior
             ],
-            components: function (spell) {
-                var cmpts = spell.components.join(', ');
-                if (spell.material !== undefined) {
-                    cmpts += ' (' + spell.material + ')';
-                }
-                return cmpts;
-            },
-            spellLevelSchoolDescription: function (spell) {
-                var desc = "";
-                if (spell.level == 0) {
-                    desc = spell.school + " Cantrip";
-                }
-                else if (spell.level == 1) {
-                    desc = "1st-level " + spell.school;
-                }
-                else if (spell.level == 2) {
-                    desc = "2nd-level " + spell.school;
-                }
-                else if (spell.level == 3) {
-                    desc = "3rd-level " + spell.school;
-                }
-                else {
-                    desc = spell.level + "th-level " + spell.school;
-                }
 
-                if (spell.ritual) {
-                    desc += " (ritual)";
-                }
-                return desc;
-            },
             toggleDrawer: function () {
                 this.fire('drawer-toggle', {});
             },
-            showPopup:function(e)
-            {
-                this.selected = this.spells[e.model.index];
+            applyFilters: function () {
+                console.log(filters);
+            },
+            showPopup: function (e) {
+                this.selected = this.filteredSpells[e.model.index];
                 this.$.details.open();
             },
-            closePopup:function(e)
-            {
-                this.$.details.close();
+            showFilters: function (e) {
+                this.$.filters.open();
+            },
+            applyFilters: function () {
+                var nameMatters = false, classMatters = false, levelMatters = false, schoolMatters = false;
+
+                nameMatters = this.filters.name !== "";
+                for (var c in this.filters.classes) {
+                    classMatters = classMatters || this.filters.classes[c];
+                }
+
+                for (var l of this.filters.levels) {
+                    levelMatters = levelMatters || l;
+                }
+
+                for (var s in this.filters.schools) {
+                    schoolMatters = schoolMatters || this.filters.schools[s];
+                }
+
+                var updatedFilteredSpells = [];
+                for (var spell of this.spells) {
+                    if (nameMatters) {
+                        var lcName = spell.name.toLowerCase();
+                        var lcTarget = this.filters.name.toLowerCase();
+                        if (lcName.indexOf(lcTarget) == -1) {
+                            //Search string not in spell name. NEXT
+                            continue;
+                        }
+                    }
+
+                    if (classMatters) {
+                        var classMatches = false;
+                        for (var c of spell.class) {
+                            if (this.filters.classes[c.toLowerCase()]) {
+                                classMatches = true;
+                            }
+                        }
+                        if (!classMatches) {
+                            //Not castable by any of the requested classes. NEXT
+                            continue;
+                        }
+                    }
+
+                    if (schoolMatters) {
+                        if (!this.filters.schools[spell.school.toLowerCase()]) {
+                            //Not part of the schools we care about. NEXT
+                            continue;
+                        }
+                    }
+
+                    if (levelMatters) {
+                        if (!this.filters.levels[spell.level]) {
+                            //Not of a level we care about. NEXT
+                            continue;
+                        }
+                    }
+
+                    if (this.filters.ritual_only) {
+                        console.log(spell.ritual);
+                        if (!spell.ritual) {
+                            continue;
+                        }
+                    }
+
+                    updatedFilteredSpells.push(spell);
+                }
+                this.filteredSpells = [];
+                this.filteredSpells = updatedFilteredSpells;
+            },
+            clearFilters: function () {
+                this.filters = {
+                    levels: [
+                        false,
+                        false,
+                        false,
+                        false,
+                        false,
+                        false,
+                        false,
+                        false,
+                        false,
+                        false
+                    ],
+                    classes: {
+                        bard: false,
+                        cleric: false,
+                        druid: false,
+                        paladin: false,
+                        ranger: false,
+                        sorcerer: false,
+                        warlock: false,
+                        wizard: false
+                    },
+                    schools: {
+                        abjuration: false,
+                        conjuration: false,
+                        diviniation: false,
+                        enchantment: false,
+                        evocation: false,
+                        illusion: false,
+                        necromancy: false,
+                        transmutation: false
+                    },
+                    name: "",
+                    ritual_only: false
+                };
+                this.applyFilters();
+            },
+            _onSpellsChanged: function () {
+                this.applyFilters();
+            },
+            ready: function () {
+                this.querySelector('spell-details').showName = false;
             }
         });
     </script>
